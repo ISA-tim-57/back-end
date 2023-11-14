@@ -50,6 +50,7 @@ public class CompanyDTO {
         Address address = new Address();
         address.setCountry(addressDTO.getCountry());
         address.setCity(addressDTO.getCity());
+        address.setStreet(addressDTO.getStreet());
         address.setNumber(addressDTO.getNumber());
         address.setZipCode(addressDTO.getZipCode());
 

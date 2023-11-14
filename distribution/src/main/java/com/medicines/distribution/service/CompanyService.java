@@ -2,8 +2,11 @@ package com.medicines.distribution.service;
 
 import com.medicines.distribution.model.Company;
 import com.medicines.distribution.repository.CompanyRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -14,7 +17,7 @@ public class CompanyService {
     private CompanyRepository companyRepository;
 
     public Company findOne(Integer id){
-            return companyRepository.findById(id).orElseGet(null);
+            return companyRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id: " + id));
     }
 
     public List<Company> findAll(){

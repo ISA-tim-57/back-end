@@ -12,6 +12,9 @@ public class Address {
     private String country;
     @Column(name = "city", nullable = false)
     private String city;
+
+    @Column(name = "street", nullable = false)
+    private String street;
     @Column(name = "number", nullable = false)
     private String number;
     @Column(name = "zipCode", nullable = false)
@@ -21,11 +24,12 @@ public class Address {
         super();
     }
 
-    public Address(Integer id, String country, String city, String number, String zipCode) {
+    public Address(Integer id, String country, String city,String street, String number, String zipCode) {
         super();
         this.id = id;
         this.country = country;
         this.city = city;
+        this.street = street;
         this.number = number;
         this.zipCode = zipCode;
     }
@@ -68,5 +72,13 @@ public class Address {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
     }
 }
