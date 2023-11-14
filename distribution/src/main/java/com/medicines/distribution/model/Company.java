@@ -19,7 +19,7 @@ public class Company {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id")
     private Address address;
 
