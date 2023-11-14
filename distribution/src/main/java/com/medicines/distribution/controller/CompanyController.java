@@ -1,7 +1,11 @@
 package com.medicines.distribution.controller;
 
+import com.medicines.distribution.dto.AppointmentDTO;
 import com.medicines.distribution.dto.CompanyDTO;
+import com.medicines.distribution.dto.EquipmentDTO;
+import com.medicines.distribution.model.Appointment;
 import com.medicines.distribution.model.Company;
+import com.medicines.distribution.model.Equipment;
 import com.medicines.distribution.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "api/companies")
@@ -37,6 +42,39 @@ public class CompanyController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(new CompanyDTO(company),HttpStatus.OK);
+    }
+
+    @GetMapping("/{companyId}/equipments")
+    public ResponseEntity<List<EquipmentDTO>> getCompanyEquipments(@PathVariable Integer companyId) {
+        Company company = companyService.findOne(companyId);
+
+        if (company != null) {
+            Set<Equipment> equipments = company.getEquipments();
+            List<EquipmentDTO> equipmentDTOS = new ArrayList<>();
+            for(Equipment e : equipments){
+                equipmentDTOS.add(new EquipmentDTO(e));
+            }
+            return new ResponseEntity<>(equipmentDTOS, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/{companyId}/appointments")
+    public ResponseEntity<List<AppointmentDTO>> getCompanyAppointments(@PathVariable Integer companyId) {
+        Company company = companyService.findOne(companyId);
+
+        if (company != null) {
+            Set<Appointment> appointments = company.getAppointments();
+            List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
+
+            for(Appointment a : appointments){
+                appointmentDTOS.add(new AppointmentDTO(a));
+            }
+            return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(consumes = "application/json")
