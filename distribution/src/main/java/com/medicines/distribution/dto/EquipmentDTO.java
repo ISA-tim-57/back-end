@@ -7,21 +7,21 @@ public class EquipmentDTO {
     private String name;
     private String description;
     private double price;
-    private CompanyDTO company;
+    private Integer companyId;
 
     public EquipmentDTO() {
     }
 
-    public EquipmentDTO(Integer id, String name, String description, double price, CompanyDTO company) {
+    public EquipmentDTO(Integer id, String name, String description, double price, Integer companyId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.company = company;
+        this.companyId = companyId;
     }
 
     public EquipmentDTO(Equipment equipment) {
-        this(equipment.getId(), equipment.getName(), equipment.getDescription(), equipment.getPrice(), new CompanyDTO(equipment.getCompany()));
+        this(equipment.getId(), equipment.getName(), equipment.getDescription(), equipment.getPrice(), equipment.getCompany().getId());
     }
 
     public Integer getId() {
@@ -40,7 +40,7 @@ public class EquipmentDTO {
         return price;
     }
 
-    public CompanyDTO getCompany() {
-        return company;
+    public Integer getCompanyId() {
+        return companyId;
     }
 }

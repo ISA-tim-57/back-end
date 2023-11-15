@@ -11,23 +11,23 @@ public class AppointmentDTO {
     private LocalDateTime dateAndTime;
     private Integer duration;
     private boolean isFree;
-    private CompanyDTO company;
+    private Integer companyId;
 
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(Integer id, String administratorName, String administratorSurname, LocalDateTime dateAndTime, Integer duration, boolean isFree, CompanyDTO company) {
+    public AppointmentDTO(Integer id, String administratorName, String administratorSurname, LocalDateTime dateAndTime, Integer duration, boolean isFree, Integer companyId) {
         this.id = id;
         this.administratorName = administratorName;
         this.administratorSurname = administratorSurname;
         this.dateAndTime = dateAndTime;
         this.duration = duration;
         this.isFree = isFree;
-        this.company = company;
+        this.companyId = companyId;
     }
 
     public AppointmentDTO(Appointment appointment) {
-        this(appointment.getId(),appointment.getAdministratorName(),appointment.getAdministratorSurname(),appointment.getDateAndTime(),appointment.getDuration(),appointment.isFree(),new CompanyDTO(appointment.getCompany()));
+        this(appointment.getId(),appointment.getAdministratorName(),appointment.getAdministratorSurname(),appointment.getDateAndTime(),appointment.getDuration(),appointment.isFree(),appointment.getCompany().getId());
     }
 
     public Integer getId() {
@@ -54,7 +54,7 @@ public class AppointmentDTO {
         return isFree;
     }
 
-    public CompanyDTO getCompany() {
-        return company;
+    public Integer getCompanyId() {
+        return companyId;
     }
 }
