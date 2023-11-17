@@ -1,6 +1,8 @@
 package com.medicines.distribution.controller;
 
+import com.medicines.distribution.dto.CompanyDTO;
 import com.medicines.distribution.dto.UserDTO;
+import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +47,22 @@ public class UserController {
 
         user = userService.save(user);
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDTO>getUser(@PathVariable Integer id){
+        User user = userService.findOne(id);
+
+        if(user == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(new UserDTO(user),HttpStatus.OK);
+    }
+
+    @PutMapping("updatecompanyadmin/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody User updatedCompanyAdmin){
+        User admin = userService.updateCompanyAdmin(id,updatedCompanyAdmin);
+        return new ResponseEntity<>(new UserDTO(admin), HttpStatus.OK);
     }
 }
