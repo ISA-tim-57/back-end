@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "api/equipments")
@@ -20,6 +23,19 @@ public class EquipmentController {
 
     @Autowired
     CompanyService companyService;
+
+
+    @GetMapping(value = "/all")
+    ResponseEntity<List<EquipmentDTO>> getAll(){
+        List<Equipment> equipments = equipmentService.findAll();
+
+        List<EquipmentDTO> equipmentsDTO = new ArrayList<>();
+        for(Equipment e : equipments){
+            equipmentsDTO.add(new EquipmentDTO(e));
+        }
+        return new ResponseEntity<>(equipmentsDTO, HttpStatus.OK);
+    }
+
 
 
     @PostMapping(consumes = "application/json")
