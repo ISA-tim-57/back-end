@@ -61,8 +61,8 @@ public class UserDTO {
         return surname;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public AddressDTO getAddressDTO() {
+        return addressDTO;
     }
 
     public String getPhone() {
