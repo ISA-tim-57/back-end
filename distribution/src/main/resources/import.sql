@@ -1,0 +1,1 @@
+INSERT into address(id, city, country, "number", street, zip_code) VALUES (1, 'Backa Palanka', 'Srbija', '27', 'Blok Partizan', '21400')
