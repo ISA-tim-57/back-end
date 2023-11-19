@@ -11,27 +11,28 @@ public class UserDTO {
     private String username;
     private String name;
     private String surname;
-    private AddressDTO addressDTO;
+    private AddressDTO address;
     private String phone;
     private String profession;
     private String companyInfo;
 
-    public UserDTO(){
 
+
+    public UserDTO() {
     }
 
     public UserDTO(User user){
-        this(user.getId(), user.getEmail(), user.getPassword(), user.getUsername(), user.getName(), user.getSurname(), new AddressDTO(user.getAddress()), user.getPhone(), user.getProfession(), user.getCompanyInfo());
-    }
+        this(user.getId(),user.getEmail(),user.getPassword(), user.getUsername(), user.getName(), user.getSurname(), new AddressDTO(user.getAddress()), user.getPhone(), user.getProfession(),user.getCompanyInfo());
 
-    public UserDTO(Integer id, String email, String password, String username, String name, String surname, AddressDTO addressDTO, String phone, String profession, String companyInfo){
+
+    public UserDTO(Integer id, String email, String password, String username, String name, String surname, AddressDTO address, String phone, String profession, String companyInfo) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
         this.name = name;
         this.surname = surname;
-        this.addressDTO = addressDTO;
+        this.address = address;
         this.phone = phone;
         this.profession = profession;
         this.companyInfo = companyInfo;
@@ -61,8 +62,10 @@ public class UserDTO {
         return surname;
     }
 
-    public AddressDTO getAddressDTO() {
-        return addressDTO;
+
+    public AddressDTO getAddress() {
+        return address;
+
     }
 
     public String getPhone() {
@@ -77,7 +80,8 @@ public class UserDTO {
         return companyInfo;
     }
 
-    public Address convertToAddress(AddressDTO addressDTO){
+    public Address convertToAddress(AddressDTO addressDTO) {
+
         Address address = new Address();
         address.setCountry(addressDTO.getCountry());
         address.setCity(addressDTO.getCity());
@@ -88,5 +92,5 @@ public class UserDTO {
         return address;
     }
 
-
 }
+

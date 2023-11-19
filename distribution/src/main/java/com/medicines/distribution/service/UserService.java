@@ -1,5 +1,6 @@
 package com.medicines.distribution.service;
 
+import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,24 +14,38 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
-
+    UserRepository userRepository;
     @Autowired
-    private AddressService addressService;
+    AddressService addressService;
+
 
 
     public User save(User user){
         return userRepository.save(user);
     }
 
-    public List<User> findAll() { return userRepository.findAll(); }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
+
 
     public User findOne(Integer id){
         return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
     }
 
+
     public User updateUser(Integer id, User user) {
         user.setAddress(addressService.update(user.getAddress().getId(),user.getAddress()));
         return userRepository.updateUser(id, user);
     }
+
+
+    public User updateCompanyAdmin(Integer id, User user) {
+        user.setAddress(addressService.update(user.getAddress().getId(),user.getAddress()));
+        return userRepository.updateCompanyAdmin(id,user);
+    }
+
 }
+
+

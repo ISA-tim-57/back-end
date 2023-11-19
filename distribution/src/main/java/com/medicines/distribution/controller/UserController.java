@@ -1,20 +1,33 @@
 package com.medicines.distribution.controller;
 
+
+import jdk.javadoc.doclet.Reporter;
+
+
+import com.medicines.distribution.dto.CompanyDTO;
 import com.medicines.distribution.dto.UserDTO;
+import com.medicines.distribution.model.Company;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.service.UserService;
-import jdk.javadoc.doclet.Reporter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "api/users")
 public class UserController {
+
 
     @Autowired
     UserService userService;
@@ -38,7 +51,7 @@ public class UserController {
         user.setPassword(userDTO.getPassword());
         user.setName(userDTO.getName());
         user.setSurname(userDTO.getSurname());
-        user.setAddress(userDTO.convertToAddress(userDTO.getAddressDTO()));
+        user.setAddress(userDTO.convertToAddress(userDTO.getAddress()));
         user.setPhone(userDTO.getPhone());
         user.setProfession(userDTO.getProfession());
         user.setCompanyInfo(userDTO.getCompanyInfo());
@@ -47,6 +60,7 @@ public class UserController {
         user = userService.save(user);
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
     }
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
@@ -64,4 +78,14 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
 
+
+
+
+    @PutMapping("updatecompanyadmin/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody User updatedCompanyAdmin){
+        User admin = userService.updateCompanyAdmin(id,updatedCompanyAdmin);
+        return new ResponseEntity<>(new UserDTO(admin), HttpStatus.OK);
+    }
 }
+
+

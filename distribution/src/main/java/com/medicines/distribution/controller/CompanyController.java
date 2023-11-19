@@ -91,6 +91,14 @@ public class CompanyController {
         return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<CompanyDTO> update(@PathVariable Integer id, @RequestBody Company updatedCompany){
+        Company company = companyService.update(id,updatedCompany);
+        return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.OK);
+    }
+
+
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteCompany(@PathVariable Integer id) {
 

@@ -1,9 +1,12 @@
 package com.medicines.distribution.model;
 
+
+import com.medicines.distribution.model.Address;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name="\"user\"")
+
 public class User {
 
     @Id
@@ -29,6 +32,7 @@ public class User {
     @JoinColumn(name = "address_id")
     private Address address;
 
+
     @Column(name = "phone", nullable = false)
     private String phone;
 
@@ -38,7 +42,12 @@ public class User {
     @Column(name = "companyInfo", nullable = false)
     private String companyInfo;
 
-    public User() { super(); }
+
+
+    public User() {
+    }
+
+
 
     public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession, String companyInfo) {
         this.id = id;
@@ -132,4 +141,6 @@ public class User {
     public void setCompanyInfo(String companyInfo) {
         this.companyInfo = companyInfo;
     }
+
 }
+
