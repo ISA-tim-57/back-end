@@ -4,16 +4,21 @@ import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
 
 import java.util.List;
 
 @Service
-
-public class UserService{
+public class UserService {
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
+    @Autowired
+    AddressService addressService;
+
 
     public User save(User user){
         return userRepository.save(user);
@@ -23,10 +28,14 @@ public class UserService{
         return userRepository.findAll();
     }
 
+    public User findOne(Integer id){
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+    }
 
-
-
-
-
+    public User updateCompanyAdmin(Integer id, User user) {
+        user.setAddress(addressService.update(user.getAddress().getId(),user.getAddress()));
+        return userRepository.updateCompanyAdmin(id,user);
+    }
 
 }
+

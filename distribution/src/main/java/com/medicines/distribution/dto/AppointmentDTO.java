@@ -10,7 +10,7 @@ public class AppointmentDTO {
     private String administratorSurname;
     private LocalDateTime dateAndTime;
     private Integer duration;
-    private boolean isFree;
+    private boolean free;
     private Integer companyId;
 
     public AppointmentDTO() {
@@ -22,7 +22,7 @@ public class AppointmentDTO {
         this.administratorSurname = administratorSurname;
         this.dateAndTime = dateAndTime;
         this.duration = duration;
-        this.isFree = isFree;
+        this.free = isFree;
         this.companyId = companyId;
     }
 
@@ -51,7 +51,7 @@ public class AppointmentDTO {
     }
 
     public boolean isFree() {
-        return isFree;
+        return free;
     }
 
     public Integer getCompanyId() {

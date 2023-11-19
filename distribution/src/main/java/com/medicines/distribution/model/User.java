@@ -41,6 +41,10 @@ public class User {
     private String companyInfo;
 
 
+    public User() {
+    }
+
+
     public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession, String companyInfo) {
         this.id = id;
         this.email = email;
@@ -52,9 +56,6 @@ public class User {
         this.phone = phone;
         this.profession = profession;
         this.companyInfo = companyInfo;
-    }
-
-    public User() {
     }
 
     public Integer getId() {
@@ -136,4 +137,6 @@ public class User {
     public void setCompanyInfo(String companyInfo) {
         this.companyInfo = companyInfo;
     }
+
 }
+

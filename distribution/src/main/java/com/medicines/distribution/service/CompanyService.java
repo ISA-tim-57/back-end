@@ -16,6 +16,9 @@ public class CompanyService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private AddressService addressService;
+
     public Company findOne(Integer id){
             return companyRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with id: " + id));
     }
@@ -30,5 +33,9 @@ public class CompanyService {
 
     public void remove(Integer id) {
         companyRepository.deleteById(id);
+    }
+    public Company update(Integer id,Company company) {
+        company.setAddress(addressService.update(company.getAddress().getId(),company.getAddress()));
+        return companyRepository.update(id,company);
     }
 }

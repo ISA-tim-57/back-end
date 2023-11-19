@@ -28,4 +28,6 @@ public class AddressService {
     public void remove(Integer id) {
         addressRepository.deleteById(id);
     }
+
+    public Address update(Integer id,Address address){return addressRepository.update(id,address);}
 }
