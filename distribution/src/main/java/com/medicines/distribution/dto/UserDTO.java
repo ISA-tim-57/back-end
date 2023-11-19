@@ -1,6 +1,5 @@
 package com.medicines.distribution.dto;
 
-
 import com.medicines.distribution.model.Address;
 import com.medicines.distribution.model.User;
 
@@ -16,6 +15,7 @@ public class UserDTO {
     private String phone;
     private String profession;
     private String companyInfo;
+
 
 
     public UserDTO() {
@@ -37,7 +37,6 @@ public class UserDTO {
         this.profession = profession;
         this.companyInfo = companyInfo;
     }
-
 
     public Integer getId() {
         return id;
@@ -63,8 +62,10 @@ public class UserDTO {
         return surname;
     }
 
+
     public AddressDTO getAddress() {
         return address;
+
     }
 
     public String getPhone() {
@@ -80,6 +81,7 @@ public class UserDTO {
     }
 
     public Address convertToAddress(AddressDTO addressDTO) {
+
         Address address = new Address();
         address.setCountry(addressDTO.getCountry());
         address.setCity(addressDTO.getCity());

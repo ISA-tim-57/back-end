@@ -1,6 +1,9 @@
 package com.medicines.distribution.controller;
 
 
+import jdk.javadoc.doclet.Reporter;
+
+
 import com.medicines.distribution.dto.CompanyDTO;
 import com.medicines.distribution.dto.UserDTO;
 import com.medicines.distribution.model.Company;
@@ -12,11 +15,11 @@ import java.util.Set;
 
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 
 
@@ -60,15 +63,23 @@ public class UserController {
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO>getUser(@PathVariable Integer id){
+    public ResponseEntity<UserDTO> getUser(@PathVariable Integer id){
         User user = userService.findOne(id);
 
-        if(user == null){
+        if(user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-        return new ResponseEntity<>(new UserDTO(user),HttpStatus.OK);
+        return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
+
+    @PutMapping("updateUser/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody User updatedUser){
+        User user = userService.updateUser(id,updatedUser);
+        return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
+    }
+
+
+
 
     @PutMapping("updatecompanyadmin/{id}")
     public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody User updatedCompanyAdmin){
@@ -76,4 +87,5 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(admin), HttpStatus.OK);
     }
 }
+
 
