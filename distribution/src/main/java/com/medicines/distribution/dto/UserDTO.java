@@ -1,9 +1,11 @@
 package com.medicines.distribution.dto;
 
+
 import com.medicines.distribution.model.Address;
 import com.medicines.distribution.model.User;
 
 public class UserDTO {
+
     private Integer id;
     private String email;
     private String password;
@@ -15,12 +17,13 @@ public class UserDTO {
     private String profession;
     private String companyInfo;
 
+
     public UserDTO() {
     }
 
     public UserDTO(User user){
         this(user.getId(),user.getEmail(),user.getPassword(), user.getUsername(), user.getName(), user.getSurname(), new AddressDTO(user.getAddress()), user.getPhone(), user.getProfession(),user.getCompanyInfo());
-    }
+
 
     public UserDTO(Integer id, String email, String password, String username, String name, String surname, AddressDTO address, String phone, String profession, String companyInfo) {
         this.id = id;
@@ -34,6 +37,7 @@ public class UserDTO {
         this.profession = profession;
         this.companyInfo = companyInfo;
     }
+
 
     public Integer getId() {
         return id;
@@ -85,4 +89,6 @@ public class UserDTO {
 
         return address;
     }
+
 }
+

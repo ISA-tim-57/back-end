@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+
 import java.util.List;
 
 @Service
@@ -17,6 +18,7 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     AddressService addressService;
+
 
     public User save(User user){
         return userRepository.save(user);
@@ -36,3 +38,4 @@ public class UserService {
     }
 
 }
+

@@ -1,8 +1,15 @@
 package com.medicines.distribution.controller;
 
+
 import com.medicines.distribution.dto.CompanyDTO;
 import com.medicines.distribution.dto.UserDTO;
 import com.medicines.distribution.model.Company;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +17,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+
+
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "api/users")
 public class UserController {
+
 
     @Autowired
     UserService userService;
@@ -49,6 +58,7 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
     }
 
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<UserDTO>getUser(@PathVariable Integer id){
         User user = userService.findOne(id);
@@ -66,3 +76,4 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(admin), HttpStatus.OK);
     }
 }
+
