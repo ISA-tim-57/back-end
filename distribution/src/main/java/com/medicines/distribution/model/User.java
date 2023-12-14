@@ -3,11 +3,17 @@ package com.medicines.distribution.model;
 
 import com.medicines.distribution.model.Address;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
-@Table(name="\"user\"")
+@Table(name="app_user")
 
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,14 +48,23 @@ public class User {
     @Column(name = "companyInfo", nullable = false)
     private String companyInfo;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public User() {
     }
 
 
 
-    public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession, String companyInfo) {
+    public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession,String role, String companyInfo) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -59,6 +74,12 @@ public class User {
         this.address = address;
         this.phone = phone;
         this.profession = profession;
+        if(role.equals("SYSTEMADMIN"))
+            this.role = Role.SYSTEMADMIN;
+        else if (role.equals("COMPANYADMIN"))
+            this.role = Role.COMPANYADMIN;
+        else
+            this.role = Role.ORDINARYUSER;
         this.companyInfo = companyInfo;
     }
 
@@ -78,16 +99,8 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public void setUsername(String username) {
@@ -140,6 +153,42 @@ public class User {
 
     public void setCompanyInfo(String companyInfo) {
         this.companyInfo = companyInfo;
+    }
+
+
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
 }

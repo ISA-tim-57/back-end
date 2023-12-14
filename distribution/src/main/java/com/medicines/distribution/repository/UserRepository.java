@@ -5,8 +5,11 @@ import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+    Optional<User> findUserByUsername(String username);
     default User updateUser(Integer id, User newUser){
         User user = findById(id).orElse(null);
 
