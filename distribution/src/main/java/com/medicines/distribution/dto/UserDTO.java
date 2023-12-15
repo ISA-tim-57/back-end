@@ -14,7 +14,6 @@ public class UserDTO {
     private AddressDTO address;
     private String phone;
     private String profession;
-    private String role;
     private String companyInfo;
 
 
@@ -23,10 +22,10 @@ public class UserDTO {
     }
 
     public UserDTO(User user) {
-        this(user.getId(), user.getEmail(), user.getPassword(), user.getUsername(), user.getName(), user.getSurname(), new AddressDTO(user.getAddress()), user.getPhone(), user.getProfession(), user.getRole().toString(), user.getCompanyInfo());
+        this(user.getId(), user.getEmail(), user.getPassword(), user.getUsername(), user.getName(), user.getSurname(), new AddressDTO(user.getAddress()), user.getPhone(), user.getProfession(), user.getCompanyInfo());
     }
 
-    public UserDTO(Integer id, String email, String password, String username, String name, String surname, AddressDTO address, String phone, String profession,String role, String companyInfo) {
+    public UserDTO(Integer id, String email, String password, String username, String name, String surname, AddressDTO address, String phone, String profession, String companyInfo) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -36,7 +35,6 @@ public class UserDTO {
         this.address = address;
         this.phone = phone;
         this.profession = profession;
-        this.role = role;
         this.companyInfo = companyInfo;
     }
 
@@ -70,9 +68,6 @@ public class UserDTO {
 
     }
 
-    public String getRole() {
-        return role;
-    }
 
     public String getPhone() {
         return phone;

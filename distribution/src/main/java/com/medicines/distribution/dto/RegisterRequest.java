@@ -1,6 +1,5 @@
 package com.medicines.distribution.dto;
 
-import com.medicines.distribution.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,5 +14,4 @@ public class RegisterRequest {
     private String lastname;
     private String email;
     private String password;
-    private Role role;
 }

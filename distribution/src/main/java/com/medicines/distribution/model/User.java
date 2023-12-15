@@ -1,6 +1,7 @@
 package com.medicines.distribution.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medicines.distribution.model.Address;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -48,23 +49,18 @@ public class User implements UserDetails {
     @Column(name = "companyInfo", nullable = false)
     private String companyInfo;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
     public User() {
     }
 
 
 
-    public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession,String role, String companyInfo) {
+    public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession, String companyInfo) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -74,13 +70,6 @@ public class User implements UserDetails {
         this.address = address;
         this.phone = phone;
         this.profession = profession;
-        if(role.equals("SYSTEMADMIN"))
-            this.role = Role.SYSTEMADMIN;
-        else if (role.equals("COMPANYADMIN"))
-            this.role = Role.COMPANYADMIN;
-        else
-            this.role = Role.ORDINARYUSER;
-        this.companyInfo = companyInfo;
     }
 
     public Integer getId() {
@@ -162,14 +151,17 @@ public class User implements UserDetails {
         return username;
     }
 
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles;
+    }
+
     @Override
     public String getPassword() {
         return password;
     }
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
+
 
     @Override
     public boolean isAccountNonExpired() {
@@ -191,5 +183,12 @@ public class User implements UserDetails {
         return true;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
 

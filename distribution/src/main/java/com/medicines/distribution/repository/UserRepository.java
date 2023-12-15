@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<User> findUserByUsername(String username);
+    User findUserByUsername(String username);
     default User updateUser(Integer id, User newUser){
         User user = findById(id).orElse(null);
 
