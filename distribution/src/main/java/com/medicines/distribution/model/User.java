@@ -5,7 +5,7 @@ import com.medicines.distribution.model.Address;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="\"user\"")
+@Table(name="app_user")
 
 public class User {
 
