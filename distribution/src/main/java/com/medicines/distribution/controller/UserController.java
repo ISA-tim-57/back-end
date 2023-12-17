@@ -9,6 +9,7 @@ import com.medicines.distribution.dto.CompanyDTO;
 import com.medicines.distribution.dto.UserDTO;
 import com.medicines.distribution.model.Company;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,7 @@ import com.medicines.distribution.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -81,6 +83,12 @@ public class UserController {
     public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody User updatedCompanyAdmin){
         User admin = userService.updateCompanyAdmin(id,updatedCompanyAdmin);
         return new ResponseEntity<>(new UserDTO(admin), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/whoami")
+    public User user(Principal user) {
+        return this.userService.findByEmail(user.getName());
     }
 
     @PutMapping("changepassword/{id}")

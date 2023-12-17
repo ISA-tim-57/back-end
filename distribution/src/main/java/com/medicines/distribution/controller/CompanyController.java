@@ -10,6 +10,7 @@ import com.medicines.distribution.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
@@ -37,7 +38,9 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<CompanyDTO> getCompany(@PathVariable Integer id){
+
         Company company = companyService.findOne(id);
 
         if(company == null){
