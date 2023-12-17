@@ -2,9 +2,11 @@ package com.medicines.distribution.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.Timer;
 
 @Entity
 public class Company {
@@ -32,17 +34,25 @@ public class Company {
     @Column(name = "rating", nullable = false)
     private double rating;
 
+    @Column(name = "working_hours_begin")
+    private LocalTime workingHoursStart;
+
+    @Column(name = "working_hours_end")
+    private LocalTime workingHoursEnd;
+
     public Company() {
         super();
     }
 
-    public Company(Integer id, String name, String description, Address address, double rating) {
+    public Company(Integer id, String name, String description, Address address, double rating, LocalTime workingHoursStart, LocalTime workingHoursEnd) {
         super();
         this.id = id;
         this.name = name;
         this.description = description;
         this.address = address;
         this.rating = rating;
+        this.workingHoursStart = workingHoursStart;
+        this.workingHoursEnd = workingHoursEnd;
     }
 
     public void setId(Integer id) {
@@ -99,6 +109,22 @@ public class Company {
 
     public double getRating() {
         return rating;
+    }
+
+    public LocalTime getWorkingHoursStart() {
+        return workingHoursStart;
+    }
+
+    public void setWorkingHoursStart(LocalTime workingHoursStart) {
+        this.workingHoursStart = workingHoursStart;
+    }
+
+    public LocalTime getWorkingHoursEnd() {
+        return workingHoursEnd;
+    }
+
+    public void setWorkingHoursEnd(LocalTime workingHoursEnd) {
+        this.workingHoursEnd = workingHoursEnd;
     }
 
     public void addEquipment(Equipment equipment){

@@ -5,8 +5,11 @@ import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+    User findUserByEmail(String email);
     default User updateUser(Integer id, User newUser){
         User user = findById(id).orElse(null);
 
@@ -16,6 +19,19 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             save(user);
         }
         return user;
+    }
+
+    default User changePassword(Integer id, String oldPassword, String newPassword){
+        User user = findById(id).orElse(null);
+        if(user != null && user.getPassword().equals(oldPassword)){
+            user.setPassword(newPassword);
+            save(user);
+
+            return user;
+        }
+        else{
+            return null;
+        }
     }
 
 
