@@ -42,7 +42,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration{
 
     private static final String[] WHITE_LIST_URL = {
-            "/api/auth/**",
+            "/api/auth/authenticate",
+            "/api/auth/register",
             "api/users/**"
     };
 

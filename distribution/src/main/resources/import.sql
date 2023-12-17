@@ -2,9 +2,9 @@ INSERT into address( city, country, "number", street, zip_code) VALUES ('Backa P
 INSERT into address( city, country, "number", street, zip_code) VALUES ('Novi Sad', 'Srbija', '33', 'Novosadskog sajma', '21000');
 INSERT into address( city, country, "number", street, zip_code) VALUES ('Novi Sad', 'Srbija', '44', 'Strazilovska', '21000');
 --
--- INSERT into company(address_id, rating, description, name) VALUES ( 1, 5, 'Opis 1', 'Kompa1');
--- INSERT into company(address_id, rating, description, name) VALUES ( 2, 4, 'Opis 2', 'Kompa2');
--- INSERT into company(address_id, rating, description, name) VALUES ( 3, 5, 'Opis 3', 'Ubisoft');
+INSERT into company(address_id, rating, description, name) VALUES ( 1, 5, 'Opis 1', 'Kompa1');
+INSERT into company(address_id, rating, description, name) VALUES ( 2, 4, 'Opis 2', 'Kompa2');
+INSERT into company(address_id, rating, description, name) VALUES ( 3, 5, 'Opis 3', 'Ubisoft');
 
 INSERT INTO ROLE (id,name) VALUES (1,'ROLE_USER');
 INSERT INTO ROLE (id,name) VALUES (2,'ROLE_COMPANYADMIN');

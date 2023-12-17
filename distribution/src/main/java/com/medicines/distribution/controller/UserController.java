@@ -86,7 +86,7 @@ public class UserController {
 
     @GetMapping("/whoami")
     public User user(Principal user) {
-        return this.userService.findByUsername(user.getName());
+        return this.userService.findByEmail(user.getName());
     }
 }
 

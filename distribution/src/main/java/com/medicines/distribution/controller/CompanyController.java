@@ -39,6 +39,7 @@ public class CompanyController {
     @GetMapping(value = "/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<CompanyDTO> getCompany(@PathVariable Integer id){
+
         Company company = companyService.findOne(id);
 
         if(company == null){

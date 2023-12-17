@@ -31,7 +31,7 @@ public class AuthenticationController {
 
     @PostMapping(value ="/register", consumes = "application/json")
     public ResponseEntity<User> register(@RequestBody UserDTO request){
-        User existingUser = userService.findByUsername(request.getUsername());
+        User existingUser = userService.findByEmail(request.getUsername());
 
         if(existingUser != null){
             throw new ResourceConflictException(request.getId(), "Username already exists");
