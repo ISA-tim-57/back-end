@@ -1,5 +1,6 @@
 package com.medicines.distribution.controller;
 
+import com.medicines.distribution.dto.CompanyDTO;
 import com.medicines.distribution.dto.EquipmentDTO;
 import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.Equipment;
@@ -49,5 +50,22 @@ public class EquipmentController {
 
         equipment = equipmentService.save(equipment);
         return new ResponseEntity<>(new EquipmentDTO(equipment), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EquipmentDTO> update(@PathVariable Integer id, @RequestBody EquipmentDTO updatedEquipment){
+        EquipmentDTO equipment = equipmentService.update(id,updatedEquipment);
+        return new ResponseEntity<>(equipment, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+        equipmentService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/search/{namePart}")
+    public ResponseEntity<List<EquipmentDTO>> search(@PathVariable String namePart){
+        return new ResponseEntity<>(equipmentService.findByNamePart(namePart),HttpStatus.OK);
     }
 }

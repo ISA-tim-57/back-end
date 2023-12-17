@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +46,9 @@ public class CompanyController {
         if(company == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(new CompanyDTO(company),HttpStatus.OK);
+
+        CompanyDTO companyDTO = new CompanyDTO(company);
+        return new ResponseEntity<>(companyDTO,HttpStatus.OK);
     }
 
     @GetMapping("/{companyId}/equipments")
@@ -89,6 +92,8 @@ public class CompanyController {
         company.setDescription(companyDTO.getDescription());
         company.setAddress(companyDTO.convertToAddress(companyDTO.getAddress()));
         company.setRating(companyDTO.getRating());
+        company.setWorkingHoursStart(companyDTO.getWorkingHoursStart());
+        company.setWorkingHoursEnd(companyDTO.getWorkingHoursEnd());
 
         company = companyService.save(company);
         return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.CREATED);

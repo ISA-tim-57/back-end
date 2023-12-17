@@ -3,6 +3,8 @@ package com.medicines.distribution.dto;
 import com.medicines.distribution.model.Address;
 import com.medicines.distribution.model.User;
 
+import java.time.LocalTime;
+
 public class UserDTO {
 
     private Integer id;
@@ -15,6 +17,7 @@ public class UserDTO {
     private String phone;
     private String profession;
     private String companyInfo;
+
 
 
 
