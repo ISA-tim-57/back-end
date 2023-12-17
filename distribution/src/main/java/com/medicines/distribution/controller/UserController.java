@@ -1,6 +1,7 @@
 package com.medicines.distribution.controller;
 
 
+import com.medicines.distribution.dto.ChangePasswordRequest;
 import jdk.javadoc.doclet.Reporter;
 
 
@@ -80,6 +81,15 @@ public class UserController {
     public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody User updatedCompanyAdmin){
         User admin = userService.updateCompanyAdmin(id,updatedCompanyAdmin);
         return new ResponseEntity<>(new UserDTO(admin), HttpStatus.OK);
+    }
+
+    @PutMapping("changepassword/{id}")
+    public ResponseEntity<Integer> changePassword(@PathVariable Integer id, @RequestBody ChangePasswordRequest request){
+        User userWithChangedPassword = userService.changePasswod(id,request);
+        if(userWithChangedPassword == null){
+            return new ResponseEntity<>(0,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(userWithChangedPassword.getId(),HttpStatus.OK);
     }
 }
 

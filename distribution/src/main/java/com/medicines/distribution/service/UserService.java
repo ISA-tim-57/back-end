@@ -1,5 +1,6 @@
 package com.medicines.distribution.service;
 
+import com.medicines.distribution.dto.ChangePasswordRequest;
 import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.repository.UserRepository;
@@ -32,6 +33,10 @@ public class UserService {
 
     public User findOne(Integer id){
         return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id: " + id));
+    }
+
+    public User changePasswod(Integer id, ChangePasswordRequest request){
+        return userRepository.changePassword(id,request.getOldPassword(),request.getNewPassword());
     }
 
 
