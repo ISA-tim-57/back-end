@@ -59,6 +59,7 @@ public class UserController {
         user.setProfession(userDTO.getProfession());
         user.setCompanyInfo(userDTO.getCompanyInfo());
         user.setUsername(userDTO.getUsername());
+        user.setCompany(null);
 
         user = userService.save(user);
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
@@ -87,13 +88,14 @@ public class UserController {
 
 
     @GetMapping("/whoami")
-    public User user(Principal user) {
-        return this.userService.findByEmail(user.getName());
+    public ResponseEntity<UserDTO> user(Principal user) {
+        User tempUser = this.userService.findByEmail(user.getName());
+        return new ResponseEntity<>(new UserDTO(tempUser), HttpStatus.OK);
     }
 
     @PutMapping("changepassword/{id}")
     public ResponseEntity<Integer> changePassword(@PathVariable Integer id, @RequestBody ChangePasswordRequest request){
-        User userWithChangedPassword = userService.changePasswod(id,request);
+        User userWithChangedPassword = userService.changePassword(id,request);
         if(userWithChangedPassword == null){
             return new ResponseEntity<>(0,HttpStatus.OK);
         }

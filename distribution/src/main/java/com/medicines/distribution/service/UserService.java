@@ -7,6 +7,7 @@ import com.medicines.distribution.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,6 +20,8 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     AddressService addressService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
 
@@ -41,8 +44,16 @@ public class UserService {
         return userRepository.findUserByEmail(email);
     }
 
-    public User changePasswod(Integer id, ChangePasswordRequest request){
-        return userRepository.changePassword(id,request.getOldPassword(),request.getNewPassword());
+    public User changePassword(Integer id, ChangePasswordRequest request){
+        User user = userRepository.findById(id).orElse(null);
+        if(user != null && passwordEncoder.matches(request.getOldPassword(), user.getPassword())){
+            return userRepository.changePassword(id,passwordEncoder.encode(request.getNewPassword()));
+        }
+        else{
+            return null;
+        }
+
+
     }
 
 

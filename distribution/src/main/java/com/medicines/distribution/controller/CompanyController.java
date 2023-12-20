@@ -1,11 +1,10 @@
 package com.medicines.distribution.controller;
 
-import com.medicines.distribution.dto.AppointmentDTO;
-import com.medicines.distribution.dto.CompanyDTO;
-import com.medicines.distribution.dto.EquipmentDTO;
+import com.medicines.distribution.dto.*;
 import com.medicines.distribution.model.Appointment;
 import com.medicines.distribution.model.Company;
 import com.medicines.distribution.model.Equipment;
+import com.medicines.distribution.model.User;
 import com.medicines.distribution.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,6 @@ public class CompanyController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<CompanyDTO> getCompany(@PathVariable Integer id){
 
         Company company = companyService.findOne(id);
@@ -49,6 +47,22 @@ public class CompanyController {
 
         CompanyDTO companyDTO = new CompanyDTO(company);
         return new ResponseEntity<>(companyDTO,HttpStatus.OK);
+    }
+
+    @GetMapping("/{companyId}/admins")
+    public ResponseEntity<List<CompanyAdminDTO>> getCompanyAdmins(@PathVariable Integer companyId){
+        Company company = companyService.findOne(companyId);
+
+        if (company != null) {
+            Set<User> admins = company.getCompanyAdmins();
+            List<CompanyAdminDTO> adminsDTOS = new ArrayList<>();
+            for(User u : admins){
+                adminsDTOS.add(new CompanyAdminDTO(u));
+            }
+            return new ResponseEntity<>(adminsDTOS, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{companyId}/equipments")

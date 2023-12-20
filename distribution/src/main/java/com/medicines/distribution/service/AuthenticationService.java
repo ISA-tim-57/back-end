@@ -48,6 +48,7 @@ public class AuthenticationService {
         u.setProfession(request.getProfession());
         u.setCompanyInfo(request.getCompanyInfo());
         u.setRoles(roles);
+        u.setCompany(null);
 
         User savedUser = repository.save(u);
 //        var jwtToken = tokenUtils.generateToken(user);
