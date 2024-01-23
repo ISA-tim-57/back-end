@@ -31,6 +31,9 @@ public class Company {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<User> companyAdmins = new HashSet<>();
+
     @Column(name = "rating", nullable = false)
     private double rating;
 
@@ -77,6 +80,14 @@ public class Company {
 
     public void setAppointments(Set<Appointment> appointments) {
         this.appointments = appointments;
+    }
+
+    public Set<User> getCompanyAdmins() {
+        return companyAdmins;
+    }
+
+    public void setCompanyAdmins(Set<User> companyAdmins) {
+        this.companyAdmins = companyAdmins;
     }
 
     public void setRating(double rating) {

@@ -4,6 +4,7 @@ import com.medicines.distribution.model.Address;
 import com.medicines.distribution.model.User;
 
 import java.time.LocalTime;
+import java.util.List;
 
 public class UserDTO {
 
@@ -17,18 +18,18 @@ public class UserDTO {
     private String phone;
     private String profession;
     private String companyInfo;
+    private Integer companyId;
 
-
-
+    private String role;
 
     public UserDTO() {
     }
 
     public UserDTO(User user) {
-        this(user.getId(), user.getEmail(), user.getPassword(), user.getUsername(), user.getName(), user.getSurname(), new AddressDTO(user.getAddress()), user.getPhone(), user.getProfession(), user.getCompanyInfo());
+        this(user.getId(), user.getEmail(), user.getPassword(), user.getUsername(), user.getName(), user.getSurname(), new AddressDTO(user.getAddress()), user.getPhone(), user.getProfession(), user.getCompanyInfo(), user.getCompany()!=null ? user.getCompany().getId() : 0,user.getRoles().get(0).getName());
     }
 
-    public UserDTO(Integer id, String email, String password, String username, String name, String surname, AddressDTO address, String phone, String profession, String companyInfo) {
+    public UserDTO(Integer id, String email, String password, String username, String name, String surname, AddressDTO address, String phone, String profession, String companyInfo, Integer companyId, String role) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -39,6 +40,8 @@ public class UserDTO {
         this.phone = phone;
         this.profession = profession;
         this.companyInfo = companyInfo;
+        this.companyId = companyId;
+        this.role = role;
     }
 
     public Integer getId() {
@@ -71,6 +74,9 @@ public class UserDTO {
 
     }
 
+    public String getRole() {
+        return role;
+    }
 
     public String getPhone() {
         return phone;
@@ -82,6 +88,10 @@ public class UserDTO {
 
     public String getCompanyInfo() {
         return companyInfo;
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
     }
 
     public Address convertToAddress(AddressDTO addressDTO) {

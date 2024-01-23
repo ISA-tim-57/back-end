@@ -49,6 +49,10 @@ public class User implements UserDetails {
     @Column(name = "companyInfo", nullable = false)
     private String companyInfo;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id")
+    private Company company;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -60,7 +64,7 @@ public class User implements UserDetails {
 
 
 
-    public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession, String companyInfo) {
+    public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession, String companyInfo, Company company) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -70,6 +74,7 @@ public class User implements UserDetails {
         this.address = address;
         this.phone = phone;
         this.profession = profession;
+        this.company = company;
     }
 
     public Integer getId() {
@@ -118,6 +123,14 @@ public class User implements UserDetails {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public String getPhone() {
