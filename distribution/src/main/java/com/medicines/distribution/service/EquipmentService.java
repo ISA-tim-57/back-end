@@ -39,6 +39,7 @@ public class EquipmentService {
         equipment.setName(updatedEquipment.getName());
         equipment.setDescription(updatedEquipment.getDescription());
         equipment.setPrice(updatedEquipment.getPrice());
+        equipment.setCount(updatedEquipment.getCount());
 
         return new EquipmentDTO(equipmentRepository.update(id,equipment));
     }

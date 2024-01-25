@@ -13,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Table(name="app_user")
-
 public class User implements UserDetails {
 
     @Id
@@ -29,30 +28,6 @@ public class User implements UserDetails {
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "surname", nullable = false)
-    private String surname;
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "address_id")
-    private Address address;
-
-
-    @Column(name = "phone", nullable = false)
-    private String phone;
-
-    @Column(name = "profession", nullable = false)
-    private String profession;
-
-    @Column(name = "companyInfo", nullable = false)
-    private String companyInfo;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "company_id")
-    private Company company;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
@@ -62,19 +37,11 @@ public class User implements UserDetails {
     public User() {
     }
 
-
-
-    public User(Integer id, String email, String password, String username, String name, String surname, Address address, String phone, String profession, String companyInfo, Company company) {
+    public User(Integer id, String email, String password, String username) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
-        this.name = name;
-        this.surname = surname;
-        this.address = address;
-        this.phone = phone;
-        this.profession = profession;
-        this.company = company;
     }
 
     public Integer getId() {
@@ -101,61 +68,61 @@ public class User implements UserDetails {
         this.username = username;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getProfession() {
-        return profession;
-    }
-
-    public void setProfession(String profession) {
-        this.profession = profession;
-    }
-
-    public String getCompanyInfo() {
-        return companyInfo;
-    }
-
-    public void setCompanyInfo(String companyInfo) {
-        this.companyInfo = companyInfo;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getSurname() {
+//        return surname;
+//    }
+//
+//    public void setSurname(String surname) {
+//        this.surname = surname;
+//    }
+//
+//    public Address getAddress() {
+//        return address;
+//    }
+//
+//    public void setAddress(Address address) {
+//        this.address = address;
+//    }
+//
+//    public Company getCompany() {
+//        return company;
+//    }
+//
+//    public void setCompany(Company company) {
+//        this.company = company;
+//    }
+//
+//    public String getPhone() {
+//        return phone;
+//    }
+//
+//    public void setPhone(String phone) {
+//        this.phone = phone;
+//    }
+//
+//    public String getProfession() {
+//        return profession;
+//    }
+//
+//    public void setProfession(String profession) {
+//        this.profession = profession;
+//    }
+//
+//    public String getCompanyInfo() {
+//        return companyInfo;
+//    }
+//
+//    public void setCompanyInfo(String companyInfo) {
+//        this.companyInfo = companyInfo;
+//    }
 
 
 

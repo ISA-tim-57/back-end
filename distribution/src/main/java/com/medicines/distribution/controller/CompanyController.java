@@ -1,10 +1,7 @@
 package com.medicines.distribution.controller;
 
 import com.medicines.distribution.dto.*;
-import com.medicines.distribution.model.Appointment;
-import com.medicines.distribution.model.Company;
-import com.medicines.distribution.model.Equipment;
-import com.medicines.distribution.model.User;
+import com.medicines.distribution.model.*;
 import com.medicines.distribution.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,9 +51,9 @@ public class CompanyController {
         Company company = companyService.findOne(companyId);
 
         if (company != null) {
-            Set<User> admins = company.getCompanyAdmins();
+            Set<CompanyAdmin> admins = company.getCompanyAdmins();
             List<CompanyAdminDTO> adminsDTOS = new ArrayList<>();
-            for(User u : admins){
+            for(CompanyAdmin u : admins){
                 adminsDTOS.add(new CompanyAdminDTO(u));
             }
             return new ResponseEntity<>(adminsDTOS, HttpStatus.OK);

@@ -1,9 +1,12 @@
 package com.medicines.distribution.service;
 
+import com.medicines.distribution.dto.BasicUserDTO;
 import com.medicines.distribution.dto.UserDTO;
 import com.medicines.distribution.model.Address;
+import com.medicines.distribution.model.BasicUser;
 import com.medicines.distribution.model.Role;
 import com.medicines.distribution.model.User;
+import com.medicines.distribution.repository.BasicUserRepository;
 import com.medicines.distribution.repository.UserRepository;
 import com.medicines.distribution.util.TokenUtils;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +23,7 @@ import java.util.List;
 public class AuthenticationService {
 
     private final UserRepository repository;
+    private final BasicUserRepository basicUserRepository;
     private final AddressService addressService;
     private final PasswordEncoder passwordEncoder;
     private final TokenUtils tokenUtils;
@@ -28,7 +32,7 @@ public class AuthenticationService {
     @Autowired
     private RoleService roleService;
 
-    public User register(UserDTO request) {
+    public BasicUser register(BasicUserDTO request) {
 
 
         Address address = new Address();
@@ -36,27 +40,23 @@ public class AuthenticationService {
 
         List<Role> roles = roleService.findByName("ROLE_USER");
 
-        User u = new User();
+        User user = new User();
+        user.setEmail(request.getUser().getEmail());
+        user.setUsername(request.getUser().getUsername());
+        user.setPassword(passwordEncoder.encode(request.getUser().getPassword()));
+        user.setRoles(roles);
+        user = repository.save(user);
 
-        u.setUsername(request.getUsername());
-        u.setPassword(passwordEncoder.encode(request.getPassword()));
-        u.setEmail(request.getEmail());
+        BasicUser u = new BasicUser();
+
+        u.setUser(user);
         u.setName(request.getName());
         u.setSurname(request.getSurname());
         u.setAddress(address);
         u.setPhone(request.getPhone());
         u.setProfession(request.getProfession());
-        u.setCompanyInfo(request.getCompanyInfo());
-        u.setRoles(roles);
-        u.setCompany(null);
 
-        User savedUser = repository.save(u);
-//        var jwtToken = tokenUtils.generateToken(user);
-        //var refreshToken = tokenUtils.generateRefreshToken(user);
-        //saveUserToken(savedUser, jwtToken);
-//        return AuthenticationResponse.builder()
-//                .token(jwtToken)
-//                .build();
+        BasicUser savedUser = basicUserRepository.save(u);
         return savedUser;
     }
 

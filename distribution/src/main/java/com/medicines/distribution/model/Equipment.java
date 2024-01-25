@@ -12,6 +12,10 @@ public class Equipment {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "count", nullable = false)
+    private Integer count;
+
+
     @Column(name = "description", nullable = false)
     private String description;
 
@@ -26,10 +30,11 @@ public class Equipment {
         super();
     }
 
-    public Equipment(Integer id, String name, String description, double price, Company company) {
+    public Equipment(Integer id, String name, Integer count, String description, double price, Company company) {
         super();
         this.id = id;
         this.name = name;
+        this.count = count;
         this.description = description;
         this.price = price;
         this.company = company;
@@ -73,5 +78,13 @@ public class Equipment {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 }
