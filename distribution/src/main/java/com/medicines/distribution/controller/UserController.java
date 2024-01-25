@@ -1,12 +1,12 @@
 package com.medicines.distribution.controller;
 
 
-import com.medicines.distribution.dto.ChangePasswordRequest;
+import com.medicines.distribution.dto.*;
+import com.medicines.distribution.model.BasicUser;
+import com.medicines.distribution.model.CompanyAdmin;
 import jdk.javadoc.doclet.Reporter;
 
 
-import com.medicines.distribution.dto.CompanyDTO;
-import com.medicines.distribution.dto.UserDTO;
 import com.medicines.distribution.model.Company;
 
 import java.security.Principal;
@@ -35,35 +35,36 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(consumes = "application/json")
-    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
 
-        List<User> existingUsers = userService.findAll();
-
-        // Provera da li postoji korisnik sa istim korisničkim imenom
-        boolean usernameExists = existingUsers.stream()
-                .anyMatch(user -> user.getUsername().equals(userDTO.getUsername()));
-
-        if (usernameExists) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-
-        // Ako korisnik sa istim korisničkim imenom ne postoji, nastavi sa registracijom
-        User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(userDTO.getPassword());
-        user.setName(userDTO.getName());
-        user.setSurname(userDTO.getSurname());
-        user.setAddress(userDTO.convertToAddress(userDTO.getAddress()));
-        user.setPhone(userDTO.getPhone());
-        user.setProfession(userDTO.getProfession());
-        user.setCompanyInfo(userDTO.getCompanyInfo());
-        user.setUsername(userDTO.getUsername());
-        user.setCompany(null);
-
-        user = userService.save(user);
-        return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
-    }
+//    @PostMapping(consumes = "application/json")
+//    public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO) {
+//
+//        List<User> existingUsers = userService.findAll();
+//
+//        // Provera da li postoji korisnik sa istim korisničkim imenom
+//        boolean usernameExists = existingUsers.stream()
+//                .anyMatch(user -> user.getUsername().equals(userDTO.getUsername()));
+//
+//        if (usernameExists) {
+//            return new ResponseEntity<>(HttpStatus.CONFLICT);
+//        }
+//
+//        // Ako korisnik sa istim korisničkim imenom ne postoji, nastavi sa registracijom
+//        User user = new User();
+//        user.setEmail(userDTO.getEmail());
+//        user.setPassword(userDTO.getPassword());
+//        user.setName(userDTO.getName());
+//        user.setSurname(userDTO.getSurname());
+//        user.setAddress(userDTO.convertToAddress(userDTO.getAddress()));
+//        user.setPhone(userDTO.getPhone());
+//        user.setProfession(userDTO.getProfession());
+//        user.setCompanyInfo(userDTO.getCompanyInfo());
+//        user.setUsername(userDTO.getUsername());
+//        user.setCompany(null);
+//
+//        user = userService.save(user);
+//        return new ResponseEntity<>(new UserDTO(user), HttpStatus.CREATED);
+//    }
 
 
     @GetMapping(value = "/{id}")
@@ -76,14 +77,37 @@ public class UserController {
         return new ResponseEntity<>(new UserDTO(user), HttpStatus.OK);
     }
 
+    @GetMapping(value = "companyadmin/{id}")
+    public ResponseEntity<CompanyAdminDTO> getCompanyAdmin(@PathVariable Integer id){
+        CompanyAdmin companyAdmin = userService.findOneCompanyAdmin(id);
+
+        if(companyAdmin == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new CompanyAdminDTO(companyAdmin), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "basicuser/{id}")
+    public ResponseEntity<BasicUserDTO> getBasicUser(@PathVariable Integer id){
+        BasicUser basicUser = userService.findOneBasicUser(id);
+
+        if(basicUser == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(new BasicUserDTO(basicUser), HttpStatus.OK);
+    }
+
 
 
 
 
     @PutMapping("updatecompanyadmin/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Integer id, @RequestBody User updatedCompanyAdmin){
-        User admin = userService.updateCompanyAdmin(id,updatedCompanyAdmin);
-        return new ResponseEntity<>(new UserDTO(admin), HttpStatus.OK);
+    public ResponseEntity<CompanyAdminDTO> update(@PathVariable Integer id, @RequestBody CompanyAdminDTO updatedCompanyAdmin){
+        CompanyAdmin companyAdmin = new CompanyAdmin();
+        companyAdmin.setName(updatedCompanyAdmin.getName());
+        companyAdmin.setSurname(updatedCompanyAdmin.getSurname());
+        CompanyAdmin admin = userService.updateCompanyAdmin(id, companyAdmin );
+        return new ResponseEntity<>(new CompanyAdminDTO(admin), HttpStatus.OK);
     }
 
 

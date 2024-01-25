@@ -1,9 +1,11 @@
 package com.medicines.distribution.controller;
 
 import com.medicines.distribution.dto.AuthenticationRequest;
+import com.medicines.distribution.dto.BasicUserDTO;
 import com.medicines.distribution.dto.UserDTO;
 import com.medicines.distribution.dto.UserTokenState;
 import com.medicines.distribution.exeption.ResourceConflictException;
+import com.medicines.distribution.model.BasicUser;
 import com.medicines.distribution.model.User;
 import com.medicines.distribution.service.AuthenticationService;
 import com.medicines.distribution.service.UserService;
@@ -30,14 +32,14 @@ public class AuthenticationController {
     UserService userService;
 
     @PostMapping(value ="/register", consumes = "application/json")
-    public ResponseEntity<User> register(@RequestBody UserDTO request){
-        User existingUser = userService.findByEmail(request.getUsername());
+    public ResponseEntity<BasicUserDTO> register(@RequestBody BasicUserDTO request){
+        User existingUser = userService.findByEmail(request.getUser().getEmail());
 
         if(existingUser != null){
-            throw new ResourceConflictException(request.getId(), "Username already exists");
+            throw new ResourceConflictException(request.getUser().getId(), "Username already exists");
         }
 
-        return ResponseEntity.ok(authenticationService.register(request));
+        return ResponseEntity.ok(new BasicUserDTO(authenticationService.register(request)));
     }
 
     @PostMapping("/authenticate")

@@ -46,6 +46,7 @@ public class EquipmentController {
         equipment.setName(equipmentDTO.getName());
         equipment.setDescription(equipmentDTO.getDescription());
         equipment.setPrice(equipmentDTO.getPrice());
+        equipment.setCount(equipmentDTO.getCount());
         equipment.setCompany(companyService.findOne(equipmentDTO.getCompanyId()));
 
         equipment = equipmentService.save(equipment);

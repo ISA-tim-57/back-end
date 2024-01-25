@@ -32,7 +32,7 @@ public class Company {
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<User> companyAdmins = new HashSet<>();
+    private Set<CompanyAdmin> companyAdmins = new HashSet<>();
 
     @Column(name = "rating", nullable = false)
     private double rating;
@@ -82,11 +82,11 @@ public class Company {
         this.appointments = appointments;
     }
 
-    public Set<User> getCompanyAdmins() {
+    public Set<CompanyAdmin> getCompanyAdmins() {
         return companyAdmins;
     }
 
-    public void setCompanyAdmins(Set<User> companyAdmins) {
+    public void setCompanyAdmins(Set<CompanyAdmin> companyAdmins) {
         this.companyAdmins = companyAdmins;
     }
 

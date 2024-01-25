@@ -1,43 +1,32 @@
 package com.medicines.distribution.dto;
 
+import com.medicines.distribution.model.CompanyAdmin;
 import com.medicines.distribution.model.User;
 
 public class CompanyAdminDTO {
 
-    private Integer id;
-    private String email;
-    private String username;
+    private UserDTO user;
     private String name;
     private String surname;
     private Integer companyId;
 
-    public CompanyAdminDTO() {
-    }
-
-    public CompanyAdminDTO(User admin) {
-        this(admin.getId(),admin.getEmail(),admin.getUsername(), admin.getName(), admin.getSurname(), admin.getCompany().getId());
-    }
-
-
-    public CompanyAdminDTO(Integer id, String email, String username, String name, String surname, Integer companyId) {
-        this.id = id;
-        this.email = email;
-        this.username = username;
+    public CompanyAdminDTO(UserDTO user, Integer companyId, String name, String surname) {
+        this.user = user;
         this.name = name;
         this.surname = surname;
         this.companyId = companyId;
     }
 
-    public Integer getId() {
-        return id;
+    public CompanyAdminDTO(CompanyAdmin admin){
+        this(new UserDTO(admin.getId(), admin.getUser().getEmail(),admin.getUser().getPassword(),admin.getUser().getUsername(),admin.getUser().getRoles().get(0).getName()), admin.getCompany().getId(), admin.getName(), admin.getSurname());
     }
 
-    public String getEmail() {
-        return email;
+    public UserDTO getUser() {
+        return user;
     }
 
-    public String getUsername() {
-        return username;
+    public Integer getCompanyId() {
+        return companyId;
     }
 
     public String getName() {
@@ -46,9 +35,5 @@ public class CompanyAdminDTO {
 
     public String getSurname() {
         return surname;
-    }
-
-    public Integer getCompanyId() {
-        return companyId;
     }
 }

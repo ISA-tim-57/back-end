@@ -15,6 +15,7 @@ public interface EquipmentRepository extends JpaRepository<Equipment,Integer> {
             equipment.setName(updatedEquipment.getName());
             equipment.setDescription(updatedEquipment.getDescription());
             equipment.setPrice(updatedEquipment.getPrice());
+            equipment.setCount(updatedEquipment.getCount());
             save(equipment);
         }
 
