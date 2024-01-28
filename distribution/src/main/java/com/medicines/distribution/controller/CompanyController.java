@@ -112,6 +112,7 @@ public class CompanyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CompanyDTO> update(@PathVariable Integer id, @RequestBody Company updatedCompany){
+
         Company company = companyService.update(id,updatedCompany);
         return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.OK);
     }

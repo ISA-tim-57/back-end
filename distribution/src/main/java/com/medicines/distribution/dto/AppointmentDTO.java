@@ -8,7 +8,8 @@ public class AppointmentDTO {
     private Integer id;
     private String administratorName;
     private String administratorSurname;
-    private LocalDateTime dateAndTime;
+    private Integer adminUserId; //zapravo ovo je userID
+    private String dateAndTime;
     private Integer duration;
     private boolean free;
     private Integer companyId;
@@ -16,10 +17,11 @@ public class AppointmentDTO {
     public AppointmentDTO() {
     }
 
-    public AppointmentDTO(Integer id, String administratorName, String administratorSurname, LocalDateTime dateAndTime, Integer duration, boolean isFree, Integer companyId) {
+    public AppointmentDTO(Integer id, String administratorName, String administratorSurname, Integer adminUserId, String dateAndTime, Integer duration, boolean isFree, Integer companyId) {
         this.id = id;
         this.administratorName = administratorName;
         this.administratorSurname = administratorSurname;
+        this.adminUserId = adminUserId;
         this.dateAndTime = dateAndTime;
         this.duration = duration;
         this.free = isFree;
@@ -27,7 +29,7 @@ public class AppointmentDTO {
     }
 
     public AppointmentDTO(Appointment appointment) {
-        this(appointment.getId(),appointment.getAdministratorName(),appointment.getAdministratorSurname(),appointment.getDateAndTime(),appointment.getDuration(),appointment.isFree(),appointment.getCompany().getId());
+        this(appointment.getId(),appointment.getAdministratorName(),appointment.getAdministratorSurname(),appointment.getAdminUserId(),appointment.getDateAndTime().toString(),appointment.getDuration(),appointment.isFree(),appointment.getCompany().getId());
     }
 
     public Integer getId() {
@@ -43,6 +45,10 @@ public class AppointmentDTO {
     }
 
     public LocalDateTime getDateAndTime() {
+        return LocalDateTime.parse(dateAndTime);
+    }
+
+    public String getDateAndTimeAsString() {
         return dateAndTime;
     }
 
@@ -56,5 +62,9 @@ public class AppointmentDTO {
 
     public Integer getCompanyId() {
         return companyId;
+    }
+
+    public Integer getAdminUserId() {
+        return adminUserId;
     }
 }

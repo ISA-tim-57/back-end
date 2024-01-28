@@ -1,5 +1,6 @@
 package com.medicines.distribution.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "order")
+    @JsonIgnore
     private List<OrderEquipment> orderEquipments = new ArrayList<>();
 
     @ManyToOne

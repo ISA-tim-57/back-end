@@ -1,5 +1,6 @@
 package com.medicines.distribution.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
@@ -26,12 +27,15 @@ public class Company {
     private Address address;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Equipment> equipments = new HashSet<Equipment>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Appointment> appointments = new HashSet<Appointment>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<CompanyAdmin> companyAdmins = new HashSet<>();
 
     @Column(name = "rating", nullable = false)

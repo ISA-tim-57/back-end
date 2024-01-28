@@ -23,14 +23,29 @@ INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession) VALUES 
 INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession) VALUES (2,5,'Milos','Milosevic','225-212','Apotekar');
 
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (3,1,'Pera','Peric');
-INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (4,1,'Nenad','Nenadic');
+INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (4,2,'Nenad','Nenadic');
 
 INSERT INTO public.user_role(user_id, role_id) VALUES (1, 1);
 INSERT INTO public.user_role(user_id, role_id) VALUES (2, 1);
 INSERT INTO public.user_role(user_id, role_id) VALUES (3, 2);
 INSERT INTO public.user_role(user_id, role_id) VALUES (4, 2);
---
---
---
---
---
+
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (1,'Brufen 500','Brufen 500mg, 10 komada',500,15);
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (1,'Brufen 300','Brufen 300mg, 10 komada',450,20);
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (1,'Hiruske rukavice','Hiruske rukavice, pakovanje od 100 komada',750, 13);
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (1,'Febricet','Febricet pakovanje od 20 komada',250,40);
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (1,'Fervex Malina','Fervex za odrasle sa ukusom maline',810,11);
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (2, 'Pantenol','Krema za opekotine',430,18);
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (2, 'Nivea krema','Krema za ruke i lice',340,21);
+INSERT INTO equipment(company_id,name,description,price,count) VALUES (2, 'Andol','Pakovanje od 20 komada',300,51);
+
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Pera','Peric', 3,'2024-01-26 11:00:00',15,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-01-29 19:50:00',10,true);
+
+INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (1,1,1,'ON_HOLD');
+INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,2,2,'ON_HOLD');
+
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (1,1,5);
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (2,1,3);
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (6,2,4);
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (7,2,3);
