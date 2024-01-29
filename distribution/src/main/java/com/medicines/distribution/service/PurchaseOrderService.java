@@ -2,6 +2,7 @@ package com.medicines.distribution.service;
 
 import com.medicines.distribution.controller.WebSocketController;
 import com.medicines.distribution.model.Appointment;
+import com.medicines.distribution.model.Equipment;
 import com.medicines.distribution.model.PurchaseOrder;
 import com.medicines.distribution.repository.PurchaseOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,10 @@ public class PurchaseOrderService {
         return purchaseOrderRepository.findAllByCompanyAdminUserIdAndStatus(CompanyAdminId, PurchaseOrder.Status.ON_HOLD);
     }
 
+    public Set<PurchaseOrder> getPurchasedOrdersByEquipment(Integer equipmentId){
+        return purchaseOrderRepository.findAllByOrderEquipmentsEquipmentIdAndStatus(equipmentId, PurchaseOrder.Status.ON_HOLD);
+    }
+
     @Scheduled(fixedRate = 60000)
     public void updateOrderStatus(){
         Set<PurchaseOrder> orders = purchaseOrderRepository.findByStatus(PurchaseOrder.Status.ON_HOLD);
@@ -43,6 +48,11 @@ public class PurchaseOrderService {
 
     public PurchaseOrder markAsCompleted(Integer id){
         return purchaseOrderRepository.markAsCompleted(id);
+    }
+
+    public boolean isEquipmentPartOfOrder(Integer equipmentId){
+        Set<PurchaseOrder> orders = purchaseOrderRepository.findAllByOrderEquipmentsEquipmentIdAndStatus(equipmentId, PurchaseOrder.Status.ON_HOLD);
+        return !orders.isEmpty();
     }
 
 }

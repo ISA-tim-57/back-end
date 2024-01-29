@@ -36,15 +36,15 @@ public class AppointmentService {
 
         for(Appointment appoint : appointments){
             //Pocetak termina izmedju pocetka i kraja postojeceg trermina
-            if(appointment.getDateAndTime().isAfter(appoint.getDateAndTime()) && appoint.getDateAndTime().isBefore(appoint.getDateAndTime().plusMinutes(appoint.getDuration()))){
+            if((appointment.getDateAndTime().isAfter(appoint.getDateAndTime()) || appointment.getDateAndTime().isEqual(appoint.getDateAndTime()) )&& appointment.getDateAndTime().isBefore(appoint.getDateAndTime().plusMinutes(appoint.getDuration()))){
                 isFree =  false;
             }
             //kraj termina izmedju pocetka i kraja postojeceg termina
-            else if(appointment.getDateAndTime().plusMinutes(appointment.getDuration()).isAfter(appoint.getDateAndTime()) && appointment.getDateAndTime().plusMinutes(appointment.getDuration()).isBefore(appoint.getDateAndTime().plusMinutes(appoint.getDuration()))){
+            else if(appointment.getDateAndTime().plusMinutes(appointment.getDuration()).isAfter(appoint.getDateAndTime()) && (appointment.getDateAndTime().plusMinutes(appointment.getDuration()).isBefore(appoint.getDateAndTime().plusMinutes(appoint.getDuration())) || appointment.getDateAndTime().plusMinutes(appointment.getDuration()).isEqual(appoint.getDateAndTime().plusMinutes(appoint.getDuration())))){
                 isFree = false;
             }
             //Postojeci termin izmedju pocetka i kraja novog termina
-            else if(appointment.getDateAndTime().isBefore(appoint.getDateAndTime()) && appointment.getDateAndTime().plusMinutes(appointment.getDuration()).isAfter(appoint.getDateAndTime().plusMinutes(appoint.getDuration()))){
+            else if((appointment.getDateAndTime().isBefore(appoint.getDateAndTime()) || appointment.getDateAndTime().isEqual(appoint.getDateAndTime())) && appointment.getDateAndTime().plusMinutes(appointment.getDuration()).isAfter(appoint.getDateAndTime().plusMinutes(appoint.getDuration()))){
                 isFree = false;
             }
             else{

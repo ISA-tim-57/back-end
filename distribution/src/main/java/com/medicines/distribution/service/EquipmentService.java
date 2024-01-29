@@ -18,6 +18,9 @@ public class EquipmentService {
     @Autowired
     EquipmentRepository equipmentRepository;
 
+    @Autowired
+    PurchaseOrderService purchaseOrderService;
+
     public Equipment findOne(Integer id){
         return equipmentRepository.findById(id).orElseGet(null);
     }
@@ -44,12 +47,18 @@ public class EquipmentService {
         return new EquipmentDTO(equipmentRepository.update(id,equipment));
     }
 
-    public void delete(Integer id){
-        equipmentRepository.deleteById(id);
+    public boolean delete(Integer id){
+        if(!purchaseOrderService.isEquipmentPartOfOrder(id)){
+            equipmentRepository.deleteEquipmentLogical(id);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
-    public List<EquipmentDTO> findByNamePart(String namePart){
-        List<Equipment> equipments=  equipmentRepository.findByNameContainingIgnoreCase(namePart.toLowerCase());
+    public List<EquipmentDTO> findByNamePart(String namePart, Integer companyId){
+        List<Equipment> equipments=  equipmentRepository.findByNameContainingIgnoreCaseAndCompanyIdAndIsDeleted(namePart.toLowerCase(),companyId, false);
 
         List<EquipmentDTO> equipmentsDTO = new ArrayList<>();
         for(Equipment e : equipments){

@@ -22,7 +22,16 @@ public interface EquipmentRepository extends JpaRepository<Equipment,Integer> {
         return equipment;
     }
 
-    List<Equipment> findByNameContainingIgnoreCase(String substring);
+    default void deleteEquipmentLogical(Integer id){
+        Equipment equipment = findById(id).orElse(null);
+
+        if(equipment != null) {
+            equipment.setDeleted(true);
+            save(equipment);
+        }
+    }
+
+    List<Equipment> findByNameContainingIgnoreCaseAndCompanyIdAndIsDeleted(String substring, Integer companyId, boolean isDeleted);
 
 
 }

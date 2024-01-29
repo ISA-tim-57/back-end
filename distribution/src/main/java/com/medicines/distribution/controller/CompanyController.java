@@ -70,7 +70,9 @@ public class CompanyController {
             Set<Equipment> equipments = company.getEquipments();
             List<EquipmentDTO> equipmentDTOS = new ArrayList<>();
             for(Equipment e : equipments){
-                equipmentDTOS.add(new EquipmentDTO(e));
+                if(!e.isDeleted()){
+                    equipmentDTOS.add(new EquipmentDTO(e));
+                }
             }
             return new ResponseEntity<>(equipmentDTOS, HttpStatus.OK);
         } else {
