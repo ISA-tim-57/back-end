@@ -20,8 +20,8 @@ INSERT INTO app_user(email, password, username)VALUES ('mika@gmail.com', '$2a$10
 INSERT INTO app_user(email, password, username)VALUES ('nenad@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'nenad');
 INSERT INTO app_user(email, password, username)VALUES ('luka@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'luka');
 
-INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession) VALUES (1,4,'Pera','Peric','225-222','Doktor');
-INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession) VALUES (2,5,'Nikola','Nikolic','225-212','Apotekar');
+INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty) VALUES (1,4,'Pera','Peric','225-222','Doktor',0);
+INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty) VALUES (2,5,'Nikola','Nikolic','225-212','Apotekar',0);
 
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (3,1,'Mika','Mikic');
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (4,2,'Nenad','Nenadic');
@@ -42,9 +42,9 @@ INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Nivea krema','Krema za ruke i lice',340,21,false);
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Andol','Pakovanje od 20 komada',300,51,false);
 
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-01-30 11:00:00',15,true);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-01-30 15:10:00',10,true);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2024-01-30 14:20:00',10,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-01-31 11:00:00',15,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-01-31 15:10:00',10,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2024-01-31 14:20:00',10,true);
 
 INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (1,1,1,'ON_HOLD');
 INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,2,2,'ON_HOLD');

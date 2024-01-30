@@ -32,17 +32,21 @@ public class BasicUser{
     @Column(name = "profession", nullable = false)
     private String profession;
 
+    @Column(name = "penalty", nullable = false)
+    private Integer penalty;
+
     public BasicUser() {
         super();
     }
 
-    public BasicUser(User user, String name, String surname, Address address, String phone, String profession) {
+    public BasicUser(User user, String name, String surname, Address address, String phone, String profession, Integer penalty) {
         this.user = user;
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.phone = phone;
         this.profession = profession;
+        this.penalty = penalty;
     }
 
     public String getName() {
@@ -99,5 +103,13 @@ public class BasicUser{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getPenalty() {
+        return penalty;
+    }
+
+    public void setPenalty(Integer penalty) {
+        this.penalty = penalty;
     }
 }

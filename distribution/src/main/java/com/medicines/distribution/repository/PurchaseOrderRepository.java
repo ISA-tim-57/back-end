@@ -11,6 +11,8 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder,Int
     Set<PurchaseOrder> findAllByCompanyAdminUserIdAndStatus(Integer userId, PurchaseOrder.Status status);
     Set<PurchaseOrder> findByStatus(PurchaseOrder.Status status);
 
+    Set<PurchaseOrder> findAllByCompanyAdminCompanyIdAndStatus(Integer companyId, PurchaseOrder.Status status);
+
     Set<PurchaseOrder> findAllByOrderEquipmentsEquipmentIdAndStatus(Integer id, PurchaseOrder.Status status);
 
     default PurchaseOrder markAsCompleted(Integer id){

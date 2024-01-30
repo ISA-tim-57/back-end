@@ -4,11 +4,14 @@ import com.medicines.distribution.model.Appointment;
 import com.medicines.distribution.repository.Appointmentrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 
 @Service
+@Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
 public class AppointmentService {
 
     @Autowired
@@ -22,16 +25,21 @@ public class AppointmentService {
         return appointmentRepository.findAll();
     }
 
+    @Transactional(readOnly = false)
     public Appointment save(Appointment appointment){
-        return appointmentRepository.save(appointment);
+        if(checkIfAppointmentIsBusy(appointment)){
+            return appointmentRepository.save(appointment);
+        }
+        else return null;
     }
 
     public void remove(Integer id) {
         appointmentRepository.deleteById(id);
     }
 
-    public boolean checkIfAdminIsFree(Appointment appointment, Integer adminUserId){
-        Set<Appointment> appointments  = appointmentRepository.findAllByAdminUserId(adminUserId);
+    @Transactional(readOnly = true)
+    public boolean checkIfAppointmentIsBusy(Appointment appointment){
+        Set<Appointment> appointments  = appointmentRepository.findAllByCompanyId(appointment.getCompany().getId());
         boolean isFree = true;
 
         for(Appointment appoint : appointments){

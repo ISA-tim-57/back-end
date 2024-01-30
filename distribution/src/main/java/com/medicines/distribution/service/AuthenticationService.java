@@ -55,6 +55,7 @@ public class AuthenticationService {
         u.setAddress(address);
         u.setPhone(request.getPhone());
         u.setProfession(request.getProfession());
+        u.setPenalty(0);
 
         BasicUser savedUser = basicUserRepository.save(u);
         return savedUser;

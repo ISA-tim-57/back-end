@@ -1,10 +1,10 @@
 package com.medicines.distribution.controller;
 
+import com.medicines.distribution.dto.BasicUserDTO;
 import com.medicines.distribution.dto.CompanyDTO;
+import com.medicines.distribution.dto.EquipmentDTO;
 import com.medicines.distribution.dto.PurchaseOrderDTO;
-import com.medicines.distribution.model.Company;
-import com.medicines.distribution.model.CompanyAdmin;
-import com.medicines.distribution.model.PurchaseOrder;
+import com.medicines.distribution.model.*;
 import com.medicines.distribution.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,6 +42,16 @@ public class PurchaseOrderController {
     @PutMapping(value = "/changestatus/{id}")
     public ResponseEntity<PurchaseOrderDTO> changePassword(@PathVariable Integer id, @RequestBody PurchaseOrderDTO updatedPurchaseOrder){
         return new ResponseEntity<>(new PurchaseOrderDTO(purchaseOrderService.markAsCompleted(id)), HttpStatus.OK);
+    }
+
+    @GetMapping("/{companyId}/customers")
+    public ResponseEntity<List<BasicUserDTO>> getCustomers(@PathVariable Integer companyId){
+        Set<BasicUser> customers = purchaseOrderService.GetAllCustomersForActiveCompanyOrders(companyId);
+        List<BasicUserDTO> basicUserDTOS = new ArrayList<BasicUserDTO>();
+        for(BasicUser customer : customers){
+            basicUserDTOS.add(new BasicUserDTO(customer));
+        }
+        return new ResponseEntity<>(basicUserDTOS,HttpStatus.OK);
     }
 
 

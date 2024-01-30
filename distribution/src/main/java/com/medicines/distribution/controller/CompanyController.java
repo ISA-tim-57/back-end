@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class CompanyController {
 
     @Autowired
     CompanyService companyService;
+
 
     @GetMapping(value = "/all")
     ResponseEntity<List<CompanyDTO>> getAll(){
@@ -89,7 +91,9 @@ public class CompanyController {
             List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
 
             for(Appointment a : appointments){
-                appointmentDTOS.add(new AppointmentDTO(a));
+                if(a.getDateAndTime().isAfter(LocalDateTime.now())) {
+                    appointmentDTOS.add(new AppointmentDTO(a));
+                }
             }
             return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
         } else {
