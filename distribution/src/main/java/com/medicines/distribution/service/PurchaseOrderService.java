@@ -49,7 +49,6 @@ public class PurchaseOrderService {
             }
         }
         Set<PurchaseOrder> updatedOrders = purchaseOrderRepository.findByStatus(PurchaseOrder.Status.ON_HOLD);
-        webSocketController.broadcastUpdatedOrders(updatedOrders);
     }
 
     @Transactional(readOnly = false)

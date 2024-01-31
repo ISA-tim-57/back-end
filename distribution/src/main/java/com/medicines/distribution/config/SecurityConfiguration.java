@@ -44,6 +44,7 @@ public class SecurityConfiguration{
     private static final String[] WHITE_LIST_URL = {
             "/api/auth/authenticate",
             "/api/auth/register",
+            "/api/messages/publish",
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -74,7 +75,7 @@ public class SecurityConfiguration{
     @Order(Ordered.HIGHEST_PRECEDENCE)
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200","http://localhost:4300"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(List.of("Authorization","Content-type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
