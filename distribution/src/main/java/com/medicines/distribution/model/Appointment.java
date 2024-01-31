@@ -14,6 +14,8 @@ public class Appointment {
     private String administratorName;
     @Column(name = "administratorSurname", nullable = false)
     private String administratorSurname;
+    @Column(name = "admin_user_id", nullable = false)    //zapravo ovo je userID
+    private Integer adminUserId;
     @Column(name = "dateAndTime", nullable = false)
     private LocalDateTime dateAndTime;
     @Column(name = "duration", nullable = false)
@@ -29,11 +31,12 @@ public class Appointment {
         super();
     }
 
-    public Appointment(Integer id, String administratorName, String administratorSurname, LocalDateTime dateAndTime, Integer duration, boolean isFree, Company company) {
+    public Appointment(Integer id, String administratorName, String administratorSurname, Integer adminUserId, LocalDateTime dateAndTime, Integer duration, boolean isFree, Company company) {
         super();
         this.id = id;
         this.administratorName = administratorName;
         this.administratorSurname = administratorSurname;
+        this.adminUserId = adminUserId;
         this.dateAndTime = dateAndTime;
         this.duration = duration;
         this.isFree = isFree;
@@ -94,5 +97,13 @@ public class Appointment {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Integer getAdminUserId() {
+        return adminUserId;
+    }
+
+    public void setAdminUserId(Integer adminUserId) {
+        this.adminUserId = adminUserId;
     }
 }

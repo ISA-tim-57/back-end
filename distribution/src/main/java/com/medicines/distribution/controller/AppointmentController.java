@@ -25,7 +25,7 @@ public class AppointmentController {
 
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<AppointmentDTO> saveAppointment(@RequestBody AppointmentDTO appointmentDTO){
+    public ResponseEntity<?> saveAppointment(@RequestBody AppointmentDTO appointmentDTO){
 
         Appointment appointment =  new Appointment();
         appointment.setDateAndTime(appointmentDTO.getDateAndTime());
@@ -33,10 +33,17 @@ public class AppointmentController {
         appointment.setFree(appointmentDTO.isFree());
         appointment.setAdministratorName(appointmentDTO.getAdministratorName());
         appointment.setAdministratorSurname(appointmentDTO.getAdministratorSurname());
+        appointment.setAdminUserId(appointmentDTO.getAdminUserId());
         appointment.setCompany(companyService.findOne(appointmentDTO.getCompanyId()));
 
-        appointment = appointmentService.save(appointment);
+        if(appointmentService.save(appointment) == null){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("An appointment with the same date and time already exists.");
+        }
+        else{
+            return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
+        }
 
-        return new ResponseEntity<>(new AppointmentDTO(appointment), HttpStatus.CREATED);
+
     }
+
 }

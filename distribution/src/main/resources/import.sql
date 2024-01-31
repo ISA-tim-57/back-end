@@ -18,19 +18,38 @@ INSERT INTO app_user(email, password, username)VALUES ('user@gmail.com', '$2a$10
 INSERT INTO app_user(email, password, username)VALUES ('nikola@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'nidza');
 INSERT INTO app_user(email, password, username)VALUES ('mika@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'mika');
 INSERT INTO app_user(email, password, username)VALUES ('nenad@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'nenad');
+INSERT INTO app_user(email, password, username)VALUES ('luka@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'luka');
 
-INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession) VALUES (1,4,'Mika','Mikic','225-222','Doktor');
-INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession) VALUES (2,5,'Milos','Milosevic','225-212','Apotekar');
+INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty) VALUES (1,4,'Pera','Peric','225-222','Doktor',0);
+INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty) VALUES (2,5,'Nikola','Nikolic','225-212','Apotekar',0);
 
-INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (3,1,'Pera','Peric');
-INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (4,1,'Nenad','Nenadic');
+INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (3,1,'Mika','Mikic');
+INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (4,2,'Nenad','Nenadic');
+INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (5,2,'Luka','Lukic');
 
 INSERT INTO public.user_role(user_id, role_id) VALUES (1, 1);
 INSERT INTO public.user_role(user_id, role_id) VALUES (2, 1);
 INSERT INTO public.user_role(user_id, role_id) VALUES (3, 2);
 INSERT INTO public.user_role(user_id, role_id) VALUES (4, 2);
---
---
---
---
---
+INSERT INTO public.user_role(user_id, role_id) VALUES (5, 2);
+
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (1,'Brufen 500','Brufen 500mg, 10 komada',500,15,false);
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (1,'Brufen 300','Brufen 300mg, 10 komada',450,20,false);
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (1,'Hiruske rukavice','Hiruske rukavice, pakovanje od 100 komada',750, 13,false);
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (1,'Febricet','Febricet pakovanje od 20 komada',250,40,false);
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (1,'Fervex Malina','Fervex za odrasle sa ukusom maline',810,11,false);
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Pantenol','Krema za opekotine',430,18,false);
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Nivea krema','Krema za ruke i lice',340,21,false);
+INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Andol','Pakovanje od 20 komada',300,51,false);
+
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-01-31 21:57:00',1,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-01-31 15:10:00',10,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2024-01-31 14:20:00',10,true);
+
+INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (1,1,1,'ON_HOLD');
+INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,2,2,'ON_HOLD');
+
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (1,1,5);
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (2,1,3);
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (6,2,4);
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (7,2,3);

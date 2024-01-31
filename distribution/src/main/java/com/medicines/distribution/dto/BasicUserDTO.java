@@ -16,18 +16,21 @@ public class BasicUserDTO {
     private String phone;
     private String profession;
 
-    public BasicUserDTO(UserDTO user, String name, String surname, AddressDTO address, String phone, String profession) {
+    private Integer penalty;
+
+    public BasicUserDTO(UserDTO user, String name, String surname, AddressDTO address, String phone, String profession, Integer penalty) {
         this.user = user;
         this.name = name;
         this.surname = surname;
         this.address = address;
         this.phone = phone;
         this.profession = profession;
+        this.penalty = penalty;
     }
 
     public BasicUserDTO(BasicUser user){
         this(new UserDTO(user.getId(),user.getUser().getEmail(),user.getUser().getPassword(),user.getUser().getUsername(), user.getUser().getRoles().get(0).getName()),
-                user.getName(),user.getSurname(), new AddressDTO(user.getAddress()),user.getPhone(),user.getProfession());
+                user.getName(),user.getSurname(), new AddressDTO(user.getAddress()),user.getPhone(),user.getProfession(), user.getPenalty());
     }
 
     public Address convertToAddress(AddressDTO addressDTO) {
@@ -65,5 +68,9 @@ public class BasicUserDTO {
 
     public String getProfession() {
         return profession;
+    }
+
+    public Integer getPenalty() {
+        return penalty;
     }
 }

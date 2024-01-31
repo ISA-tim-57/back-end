@@ -26,11 +26,14 @@ public class Equipment {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
     public Equipment() {
         super();
     }
 
-    public Equipment(Integer id, String name, Integer count, String description, double price, Company company) {
+    public Equipment(Integer id, String name, Integer count, String description, double price, Company company, boolean isDeleted) {
         super();
         this.id = id;
         this.name = name;
@@ -38,6 +41,7 @@ public class Equipment {
         this.description = description;
         this.price = price;
         this.company = company;
+        this.isDeleted = isDeleted;
     }
 
     public Integer getId() {
@@ -86,5 +90,13 @@ public class Equipment {
 
     public void setCount(Integer count) {
         this.count = count;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

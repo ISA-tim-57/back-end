@@ -48,6 +48,7 @@ public class EquipmentController {
         equipment.setPrice(equipmentDTO.getPrice());
         equipment.setCount(equipmentDTO.getCount());
         equipment.setCompany(companyService.findOne(equipmentDTO.getCompanyId()));
+        equipment.setDeleted(false);
 
         equipment = equipmentService.save(equipment);
         return new ResponseEntity<>(new EquipmentDTO(equipment), HttpStatus.CREATED);
@@ -60,13 +61,12 @@ public class EquipmentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id){
-        equipmentService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<Boolean> delete(@PathVariable Integer id){
+        return new ResponseEntity<Boolean>(equipmentService.delete(id),HttpStatus.OK);
     }
 
-    @GetMapping("/search/{namePart}")
-    public ResponseEntity<List<EquipmentDTO>> search(@PathVariable String namePart){
-        return new ResponseEntity<>(equipmentService.findByNamePart(namePart),HttpStatus.OK);
+    @GetMapping("/search/{companyId}/{namePart}")
+    public ResponseEntity<List<EquipmentDTO>> search(@PathVariable String namePart, @PathVariable Integer companyId){
+        return new ResponseEntity<>(equipmentService.findByNamePart(namePart,companyId),HttpStatus.OK);
     }
 }

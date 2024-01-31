@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class CompanyController {
 
     @Autowired
     CompanyService companyService;
+
 
     @GetMapping(value = "/all")
     ResponseEntity<List<CompanyDTO>> getAll(){
@@ -70,7 +72,9 @@ public class CompanyController {
             Set<Equipment> equipments = company.getEquipments();
             List<EquipmentDTO> equipmentDTOS = new ArrayList<>();
             for(Equipment e : equipments){
-                equipmentDTOS.add(new EquipmentDTO(e));
+                if(!e.isDeleted()){
+                    equipmentDTOS.add(new EquipmentDTO(e));
+                }
             }
             return new ResponseEntity<>(equipmentDTOS, HttpStatus.OK);
         } else {
@@ -87,7 +91,9 @@ public class CompanyController {
             List<AppointmentDTO> appointmentDTOS = new ArrayList<>();
 
             for(Appointment a : appointments){
-                appointmentDTOS.add(new AppointmentDTO(a));
+                if(a.getDateAndTime().isAfter(LocalDateTime.now())) {
+                    appointmentDTOS.add(new AppointmentDTO(a));
+                }
             }
             return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
         } else {
@@ -112,6 +118,7 @@ public class CompanyController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CompanyDTO> update(@PathVariable Integer id, @RequestBody Company updatedCompany){
+
         Company company = companyService.update(id,updatedCompany);
         return new ResponseEntity<>(new CompanyDTO(company), HttpStatus.OK);
     }
