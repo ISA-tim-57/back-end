@@ -45,6 +45,7 @@ public class SecurityConfiguration{
             "/api/auth/authenticate",
             "/api/auth/register",
             "/api/messages/publish",
+            "/api/coordinates/current",
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
