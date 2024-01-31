@@ -1,6 +1,7 @@
 package com.medicines.distribution.service;
 
 import com.medicines.distribution.model.Appointment;
+import com.medicines.distribution.model.TokenValidator;
 import com.medicines.distribution.repository.Appointmentrepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
@@ -16,6 +18,8 @@ public class AppointmentService {
 
     @Autowired
     Appointmentrepository appointmentRepository;
+
+    private UUID currentToken = UUID.randomUUID();
 
     public Appointment findOne(Integer id){
         return appointmentRepository.findById(id).orElseGet(null);
@@ -27,7 +31,9 @@ public class AppointmentService {
 
     @Transactional(readOnly = false)
     public Appointment save(Appointment appointment){
-        if(checkIfAppointmentIsBusy(appointment)){
+        TokenValidator validator = checkIfAppointmentIsBusy(appointment);
+        if(validator.isFree() && validator.getToken().equals(currentToken)){
+            currentToken = UUID.randomUUID();
             return appointmentRepository.save(appointment);
         }
         else return null;
@@ -38,8 +44,11 @@ public class AppointmentService {
     }
 
     @Transactional(readOnly = true)
-    public boolean checkIfAppointmentIsBusy(Appointment appointment){
+    public TokenValidator checkIfAppointmentIsBusy(Appointment appointment){
+
+        UUID tempToken = currentToken;
         Set<Appointment> appointments  = appointmentRepository.findAllByCompanyId(appointment.getCompany().getId());
+
         boolean isFree = true;
 
         for(Appointment appoint : appointments){
@@ -59,6 +68,6 @@ public class AppointmentService {
                 continue;
             }
         }
-        return isFree;
+        return new TokenValidator(isFree,tempToken);
     }
 }

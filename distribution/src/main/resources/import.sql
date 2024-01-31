@@ -42,7 +42,7 @@ INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Nivea krema','Krema za ruke i lice',340,21,false);
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Andol','Pakovanje od 20 komada',300,51,false);
 
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-01-31 11:00:00',15,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-01-31 21:57:00',1,true);
 INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-01-31 15:10:00',10,true);
 INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2024-01-31 14:20:00',10,true);
 

@@ -13,6 +13,7 @@ public interface BasicUserRepository extends JpaRepository<BasicUser,Integer> {
         if(user != null){
             user.setName(newBasicUser.getName());
             user.setSurname(newBasicUser.getSurname());
+            user.setPenalty(newBasicUser.getPenalty());
             save(user);
         }
         return user;
