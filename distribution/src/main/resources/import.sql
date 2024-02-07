@@ -9,9 +9,9 @@ INSERT INTO ROLE (id,name) VALUES (1,'ROLE_USER');
 INSERT INTO ROLE (id,name) VALUES (2,'ROLE_COMPANYADMIN');
 INSERT INTO ROLE (id,name) VALUES (3,'ROLE_SYSTEMADMIN');
 --
-INSERT into company(address_id, rating, description, name, working_hours_begin,working_hours_end) VALUES ( 1, 5, 'Opis 1', 'Kompa1','07:00:00','15:00:00');
-INSERT into company(address_id, rating, description, name, working_hours_begin,working_hours_end) VALUES ( 2, 4, 'Opis 2', 'Kompa2','08:00:00','16:00:00');
-INSERT into company(address_id, rating, description, name, working_hours_begin,working_hours_end) VALUES ( 3, 5, 'Opis 3', 'Ubisoft','09:00:00','17:00:00');
+INSERT into company(address_id, rating, description, name, working_hours_begin,working_hours_end) VALUES ( 1, 5, 'Opis 1', 'HealthDelivery','07:00:00','15:00:00');
+INSERT into company(address_id, rating, description, name, working_hours_begin,working_hours_end) VALUES ( 2, 4, 'Opis 2', 'MedicCompany','08:00:00','16:00:00');
+INSERT into company(address_id, rating, description, name, working_hours_begin,working_hours_end) VALUES ( 3, 5, 'Opis 3', 'GalenPharm','09:00:00','17:00:00');
 --
 -- //za sve korisnike password je "password123"
 INSERT INTO app_user(email, password, username)VALUES ('user@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'pera');
@@ -42,14 +42,17 @@ INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Nivea krema','Krema za ruke i lice',340,21,false);
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Andol','Pakovanje od 20 komada',300,51,false);
 
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-01-31 21:57:00',1,true);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-01-31 15:10:00',10,true);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2024-01-31 14:20:00',10,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-02-02 08:30:00',30,false);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-02-02 8:30:00',15,false);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-02-02 8:50:00',15,false);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2024-02-02 09:50:00',10,true);
 
 INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (1,1,1,'ON_HOLD');
-INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,2,2,'ON_HOLD');
+INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,1,2,'ON_HOLD');
+INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,2,3,'ON_HOLD');
 
 INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (1,1,5);
 INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (2,1,3);
 INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (6,2,4);
 INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (7,2,3);
+INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (8,2,4);
