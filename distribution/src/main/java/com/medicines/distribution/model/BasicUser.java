@@ -35,6 +35,9 @@ public class BasicUser{
     @Column(name = "penalty", nullable = false)
     private Integer penalty;
 
+    @Column(name = "is_active", nullable = true)
+    private boolean isActive;
+
     public BasicUser() {
         super();
     }
@@ -47,6 +50,14 @@ public class BasicUser{
         this.phone = phone;
         this.profession = profession;
         this.penalty = penalty;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public String getName() {

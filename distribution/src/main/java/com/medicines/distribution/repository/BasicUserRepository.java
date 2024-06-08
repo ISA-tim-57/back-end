@@ -18,4 +18,6 @@ public interface BasicUserRepository extends JpaRepository<BasicUser,Integer> {
         }
         return user;
     }
+
+    BasicUser findByUser(User user);
 }

@@ -12,6 +12,7 @@ import com.medicines.distribution.service.UserService;
 import com.medicines.distribution.util.TokenUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +31,12 @@ public class AuthenticationController {
 
     @Autowired
     UserService userService;
+
+    @PutMapping("/verification/{id}")
+    public ResponseEntity<String> verifyUser(@PathVariable Integer id) {
+        authenticationService.verifyUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @PostMapping(value ="/register", consumes = "application/json")
     public ResponseEntity<BasicUserDTO> register(@RequestBody BasicUserDTO request){

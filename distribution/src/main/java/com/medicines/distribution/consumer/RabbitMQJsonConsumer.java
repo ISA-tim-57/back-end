@@ -8,7 +8,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
-
+/*
 @Service
 public class RabbitMQJsonConsumer {
     
@@ -29,3 +29,4 @@ public class RabbitMQJsonConsumer {
         coordinatesService.addCoordinates(coordinates);
     }
 }
+*/

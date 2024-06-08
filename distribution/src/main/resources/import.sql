@@ -20,8 +20,8 @@ INSERT INTO app_user(email, password, username)VALUES ('mika@gmail.com', '$2a$10
 INSERT INTO app_user(email, password, username)VALUES ('nenad@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'nenad');
 INSERT INTO app_user(email, password, username)VALUES ('luka@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'luka');
 
-INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty) VALUES (1,4,'Pera','Peric','225-222','Doktor',0);
-INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty) VALUES (2,5,'Nikola','Nikolic','225-212','Apotekar',0);
+INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty,is_active) VALUES (1,4,'Pera','Peric','225-222','Doktor',0,true);
+INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty,is_active) VALUES (2,5,'Nikola','Nikolic','225-212','Apotekar',0,true);
 
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (3,1,'Mika','Mikic');
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (4,2,'Nenad','Nenadic');
