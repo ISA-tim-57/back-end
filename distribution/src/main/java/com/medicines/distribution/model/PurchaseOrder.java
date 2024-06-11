@@ -30,6 +30,7 @@ public class PurchaseOrder {
     private BasicUser customer;
 
     @OneToOne
+    @JoinColumn(name = "appoinment_id")
     private Appointment appointment;
 
     @Enumerated(EnumType.STRING)

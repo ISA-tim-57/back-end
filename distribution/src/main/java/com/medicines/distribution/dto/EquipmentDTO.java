@@ -5,10 +5,34 @@ import com.medicines.distribution.model.Equipment;
 public class EquipmentDTO {
     private Integer id;
     private String name;
-    private Integer count;
     private String description;
     private double price;
+    private Integer count;
     private Integer companyId;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
     public EquipmentDTO() {
     }

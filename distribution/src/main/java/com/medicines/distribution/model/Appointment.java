@@ -27,8 +27,18 @@ public class Appointment {
     @JoinColumn(name = "company_id")
     private Company company;
 
+
+    @JoinColumn(name = "purchase_order_id",nullable = true)
+    @OneToOne
+    private PurchaseOrder purchaseOrder;
+
+
+
     public Appointment() {
+
         super();
+        this.purchaseOrder=null;
+
     }
 
     public Appointment(Integer id, String administratorName, String administratorSurname, Integer adminUserId, LocalDateTime dateAndTime, Integer duration, boolean isFree, Company company) {
@@ -41,6 +51,7 @@ public class Appointment {
         this.duration = duration;
         this.isFree = isFree;
         this.company = company;
+        this.purchaseOrder=null;
     }
 
     public Integer getId() {

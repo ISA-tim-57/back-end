@@ -1,10 +1,10 @@
 package com.medicines.distribution.dto;
 
-import com.medicines.distribution.model.Appointment;
-import com.medicines.distribution.model.BasicUser;
 import com.medicines.distribution.model.PurchaseOrder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PurchaseOrderDTO {
     private Integer id;
@@ -13,12 +13,15 @@ public class PurchaseOrderDTO {
     private AppointmentDTO appointment;
     private PurchaseOrder.Status status;
 
+    private List<OrderEquipmentDTO> orderEquipments;
+
     public PurchaseOrderDTO(Integer id, CompanyAdminDTO companyAdmin, BasicUserDTO customer, AppointmentDTO appointment, String status) {
         this.id = id;
         this.companyAdmin = companyAdmin;
         this.customer = customer;
         this.appointment = appointment;
-        this.status = setStatus(status);
+        this.status = PurchaseOrder.Status.valueOf(status);
+        this.orderEquipments=new ArrayList<>();
     }
 
     public PurchaseOrderDTO(PurchaseOrder purchaseOrder) {
@@ -27,6 +30,14 @@ public class PurchaseOrderDTO {
                 new BasicUserDTO(purchaseOrder.getCustomer()),
                 new AppointmentDTO(purchaseOrder.getAppointment()),
                 purchaseOrder.getStatus().toString());
+    }
+
+    public List<OrderEquipmentDTO> getOrderEquipments() {
+        return orderEquipments;
+    }
+
+    public void setOrderEquipments(List<OrderEquipmentDTO> orderEquipments) {
+        this.orderEquipments = orderEquipments;
     }
 
     public PurchaseOrder.Status setStatus(String status) {
@@ -60,7 +71,27 @@ public class PurchaseOrderDTO {
         return appointment;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCompanyAdmin(CompanyAdminDTO companyAdmin) {
+        this.companyAdmin = companyAdmin;
+    }
+
+    public void setCustomer(BasicUserDTO customer) {
+        this.customer = customer;
+    }
+
+    public void setAppointment(AppointmentDTO appointment) {
+        this.appointment = appointment;
+    }
+
     public PurchaseOrder.Status getStatus() {
         return status;
+    }
+
+    public void setStatus(PurchaseOrder.Status status) {
+        this.status = status;
     }
 }

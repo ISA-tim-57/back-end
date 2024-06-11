@@ -42,17 +42,8 @@ INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Nivea krema','Krema za ruke i lice',340,21,false);
 INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES (2, 'Andol','Pakovanje od 20 komada',300,51,false);
 
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-02-02 08:30:00',30,false);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-02-02 8:30:00',15,false);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2024-02-02 8:50:00',15,false);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2024-02-02 09:50:00',10,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-09-09 08:30:00',30,false);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2025-02-02 8:30:00',15,false);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2025-02-02 8:50:00',15,false);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2025-02-02 09:50:00',10,true);
 
-INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (1,1,1,'ON_HOLD');
-INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,1,2,'ON_HOLD');
-INSERT INTO purchase_order(company_admin_id,customer_id,appointment_id,status) VALUES (2,2,3,'ON_HOLD');
-
-INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (1,1,5);
-INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (2,1,3);
-INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (6,2,4);
-INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (7,2,3);
-INSERT INTO order_equipment(equipment_id,order_id,quantity) VALUES (8,2,4);

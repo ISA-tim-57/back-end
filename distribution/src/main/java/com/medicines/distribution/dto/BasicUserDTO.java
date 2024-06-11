@@ -45,6 +45,33 @@ public class BasicUserDTO {
         return address;
     }
 
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public void setPenalty(Integer penalty) {
+        this.penalty = penalty;
+    }
 
     public UserDTO getUser() {
         return user;

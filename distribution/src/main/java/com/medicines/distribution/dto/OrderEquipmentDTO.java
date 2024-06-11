@@ -4,27 +4,52 @@ import com.medicines.distribution.model.OrderEquipment;
 
 public class OrderEquipmentDTO {
     private Integer id;
-    private Integer purchaseOrderId;
+  //  private PurchaseOrderDTO purchaseOrder;
     private EquipmentDTO equipment;
     private Integer quantity;
 
-    public OrderEquipmentDTO(Integer id, Integer purchaseOrderId, EquipmentDTO equipment, Integer quantity) {
+    public OrderEquipmentDTO(Integer id/*, PurchaseOrderDTO purchaseOrder*/, EquipmentDTO equipment, Integer quantity) {
         this.id = id;
-        this.purchaseOrderId = purchaseOrderId;
+       // this.purchaseOrder = purchaseOrder;
         this.equipment = equipment;
         this.quantity = quantity;
     }
 
     public OrderEquipmentDTO(OrderEquipment orderEquipment) {
-        this(orderEquipment.getId(), orderEquipment.getOrder().getId(),new EquipmentDTO(orderEquipment.getEquipment()),orderEquipment.getQuantity());
+        this(
+                orderEquipment.getId(),
+              //  new PurchaseOrderDTO(orderEquipment.getOrder()),
+                new EquipmentDTO(orderEquipment.getEquipment()),
+                orderEquipment.getQuantity()
+        );
+    }
+
+    public OrderEquipmentDTO() {
+
     }
 
     public Integer getId() {
         return id;
     }
 
-    public Integer getPurchaseOrderId() {
-        return purchaseOrderId;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+/*    public PurchaseOrderDTO getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    public void setPurchaseOrder(PurchaseOrderDTO purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
+*/
+    public void setEquipment(EquipmentDTO equipment) {
+        this.equipment = equipment;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public EquipmentDTO getEquipment() {

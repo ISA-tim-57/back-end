@@ -1,5 +1,6 @@
 package com.medicines.distribution.repository;
 
+import com.medicines.distribution.model.Appointment;
 import com.medicines.distribution.model.PurchaseOrder;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,6 +15,10 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder,Int
     Set<PurchaseOrder> findAllByCompanyAdminCompanyIdAndStatus(Integer companyId, PurchaseOrder.Status status);
 
     Set<PurchaseOrder> findAllByOrderEquipmentsEquipmentIdAndStatus(Integer id, PurchaseOrder.Status status);
+
+    Optional<PurchaseOrder> findByAppointmentId(Integer id);
+
+    Set<PurchaseOrder> findAllByCustomerUserId(Integer id);
 
     default PurchaseOrder markAsCompleted(Integer id){
         Optional<PurchaseOrder> purchaseOrder = findById(id);
