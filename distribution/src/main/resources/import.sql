@@ -45,5 +45,5 @@ INSERT INTO equipment(company_id,name,description,price,count,is_deleted) VALUES
 INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (1,'Mika','Mikic', 3,'2024-09-09 08:30:00',30,false);
 INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2025-02-02 8:30:00',15,false);
 INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Nenad','Nenadic', 4,'2025-02-02 8:50:00',15,false);
-INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free) VALUES (2,'Luka','Lukic', 5,'2025-02-02 09:50:00',10,true);
+INSERT INTO appointment(company_id,administrator_name,administrator_surname,admin_user_id,date_and_time,duration,is_free,company_admin_id) VALUES (2,'Luka','Lukic', 5,'2025-02-02 09:50:00',10,true,3);
 

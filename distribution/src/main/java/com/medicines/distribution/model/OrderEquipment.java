@@ -10,8 +10,8 @@ public class OrderEquipment {
     private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private PurchaseOrder order;
+    @JoinColumn(name = "purchaseOrder_id")
+    private PurchaseOrder purchaseOrder;
 
     @ManyToOne
     @JoinColumn(name = "equipment_id")
@@ -24,10 +24,12 @@ public class OrderEquipment {
 
     public OrderEquipment(Integer id, PurchaseOrder order, Equipment equipment, int quantity) {
         this.id = id;
-        this.order = order;
+        this.purchaseOrder = order;
         this.equipment = equipment;
         this.quantity = quantity;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -38,11 +40,11 @@ public class OrderEquipment {
     }
 
     public PurchaseOrder getOrder() {
-        return order;
+        return purchaseOrder;
     }
 
     public void setOrder(PurchaseOrder order) {
-        this.order = order;
+        this.purchaseOrder = order;
     }
 
     public Equipment getEquipment() {

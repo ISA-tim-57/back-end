@@ -4,25 +4,17 @@ import com.medicines.distribution.model.OrderEquipment;
 
 public class OrderEquipmentDTO {
     private Integer id;
-  //  private PurchaseOrderDTO purchaseOrder;
+    private Integer purchaseOrder;
     private EquipmentDTO equipment;
     private Integer quantity;
 
-    public OrderEquipmentDTO(Integer id/*, PurchaseOrderDTO purchaseOrder*/, EquipmentDTO equipment, Integer quantity) {
+    public OrderEquipmentDTO(Integer id, Integer purchaseOrder, EquipmentDTO equipment, Integer quantity) {
         this.id = id;
-       // this.purchaseOrder = purchaseOrder;
+        this.purchaseOrder = purchaseOrder;
         this.equipment = equipment;
         this.quantity = quantity;
     }
 
-    public OrderEquipmentDTO(OrderEquipment orderEquipment) {
-        this(
-                orderEquipment.getId(),
-              //  new PurchaseOrderDTO(orderEquipment.getOrder()),
-                new EquipmentDTO(orderEquipment.getEquipment()),
-                orderEquipment.getQuantity()
-        );
-    }
 
     public OrderEquipmentDTO() {
 
@@ -36,14 +28,14 @@ public class OrderEquipmentDTO {
         this.id = id;
     }
 
-/*    public PurchaseOrderDTO getPurchaseOrder() {
+  public Integer getPurchaseOrder() {
         return purchaseOrder;
     }
 
-    public void setPurchaseOrder(PurchaseOrderDTO purchaseOrder) {
+    public void setPurchaseOrder(Integer purchaseOrder) {
         this.purchaseOrder = purchaseOrder;
     }
-*/
+
     public void setEquipment(EquipmentDTO equipment) {
         this.equipment = equipment;
     }

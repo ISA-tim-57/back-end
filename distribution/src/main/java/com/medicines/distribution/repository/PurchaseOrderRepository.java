@@ -16,6 +16,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder,Int
 
     Set<PurchaseOrder> findAllByOrderEquipmentsEquipmentIdAndStatus(Integer id, PurchaseOrder.Status status);
 
+    PurchaseOrder findAllById(Integer Id);
     Optional<PurchaseOrder> findByAppointmentId(Integer id);
 
     Set<PurchaseOrder> findAllByCustomerUserId(Integer id);

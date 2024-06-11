@@ -5,6 +5,7 @@ import com.medicines.distribution.dto.OrderEquipmentDTO;
 import com.medicines.distribution.dto.PurchaseOrderDTO;
 import com.medicines.distribution.model.*;
 import com.medicines.distribution.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,10 @@ public class PurchaseOrderService {
     PurchaseOrderRepository purchaseOrderRepository;
     @Autowired
     WebSocketController webSocketController;
+
+    @Autowired
+    CompanyRepository companyRepository;
+
 
     @Autowired
     UserService userService;
@@ -121,18 +126,42 @@ public class PurchaseOrderService {
     }
 
 
-    @Transactional(readOnly = false)
-    public PurchaseOrder addPurchaseOrder(PurchaseOrder purchaseOrder) {
-        // Fetch existing entities from the database
+   @Transactional(readOnly = false)
+    public PurchaseOrder addPurchaseOrder(PurchaseOrderDTO purchaseOrderDTO) {
+        // Here you can fetch and set existing entities if needed
+
+       CompanyAdmin companyAdmin = companyAdminRepository.findByUserId(purchaseOrderDTO.getCompanyAdmin().getUser().getId());
+       BasicUser customer = basicUserRepository.findByUserId(purchaseOrderDTO.getCustomer().getUser().getId());
+       Appointment appointment = appointmentRepository.getAppointmentById(purchaseOrderDTO.getAppointment().getId());
+       PurchaseOrder   purchaseOrder=new PurchaseOrder();
+       purchaseOrder.setAppointment(appointment);
+       purchaseOrder.setCustomer(customer);
+       purchaseOrder.setCompanyAdmin(companyAdmin);
+       purchaseOrder.setStatus(PurchaseOrder.Status.ON_HOLD);
+
+       PurchaseOrder savedPurchaseOrder=purchaseOrderRepository.save(purchaseOrder);
 
 
+       List<OrderEquipment> orderEquipments=new ArrayList<>();
+        for(OrderEquipmentDTO oe: purchaseOrderDTO.getOrderEquipments())
+        {
+            OrderEquipment orderEquipmentTEMP=new OrderEquipment();
+            orderEquipmentTEMP.setOrder(savedPurchaseOrder);
+            orderEquipmentTEMP.setQuantity(oe.getQuantity());
 
-        // Set the OrderEquipments to the PurchaseOrder
+            Equipment equipment = equipmentRepository.findById(oe.getEquipment().getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Equipment not found with ID: " + oe.getEquipment().getId()));
 
-        // Persist the PurchaseOrder
+            orderEquipmentTEMP.setEquipment(equipment);
+            orderEquipments.add(orderEquipmentTEMP);
+        }
+
+       List<OrderEquipment>  savedOrderEquipment=orderEquipmentRepository.saveAll(orderEquipments);
+
+        savedPurchaseOrder.setOrderEquipments(savedOrderEquipment);
+
+
+        // Save the purchase order to the database
         return purchaseOrderRepository.save(purchaseOrder);
     }
-
-
-
 }

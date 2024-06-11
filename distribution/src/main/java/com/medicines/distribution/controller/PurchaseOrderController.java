@@ -1,13 +1,11 @@
 package com.medicines.distribution.controller;
 
-import com.medicines.distribution.dto.BasicUserDTO;
-import com.medicines.distribution.dto.CompanyDTO;
-import com.medicines.distribution.dto.EquipmentDTO;
-import com.medicines.distribution.dto.PurchaseOrderDTO;
+import com.medicines.distribution.dto.*;
 import com.medicines.distribution.model.*;
 import com.medicines.distribution.repository.Appointmentrepository;
 import com.medicines.distribution.repository.BasicUserRepository;
 import com.medicines.distribution.repository.CompanyAdminRepository;
+import com.medicines.distribution.repository.PurchaseOrderRepository;
 import com.medicines.distribution.service.OrderEquipmentService;
 import com.medicines.distribution.service.PurchaseOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,29 +36,17 @@ public class PurchaseOrderController {
     @Autowired
     Appointmentrepository appointmentRepository;
 
+    @Autowired
+    PurchaseOrderRepository purchaseOrderRepository;
+
+
+
+
     @PostMapping("/add")
     public ResponseEntity<PurchaseOrderDTO> addPurchaseOrder(@RequestBody PurchaseOrderDTO purchaseOrderDTO) {
-        try {
-            // Save OrderEquipments first
-            List<OrderEquipment> orderEquipments=orderEquipmentService.saveOrderEquipments(purchaseOrderDTO.getOrderEquipments());
-
-            CompanyAdmin companyAdmin = companyAdminRepository.findByUserId(purchaseOrderDTO.getCompanyAdmin().getUser().getId());
-            BasicUser customer = basicUserRepository.findByUserId(purchaseOrderDTO.getCustomer().getUser().getId());
-            Appointment appointment = appointmentRepository.getAppointmentById(purchaseOrderDTO.getAppointment().getId());
-            PurchaseOrder   purchaseOrder=new PurchaseOrder();
-            purchaseOrder.setOrderEquipments(orderEquipments);
-            purchaseOrder.setAppointment(appointment);
-            purchaseOrder.setCustomer(customer);
-            purchaseOrder.setCompanyAdmin(companyAdmin);
-            purchaseOrder.setStatus(purchaseOrderDTO.getStatus());
-
-            // Then save the complete PurchaseOrder
-            PurchaseOrder savedPurchaseOrder = purchaseOrderService.addPurchaseOrder(purchaseOrder);
-            PurchaseOrderDTO savedPurchaseOrderDTO = new PurchaseOrderDTO(savedPurchaseOrder);
-            return new ResponseEntity<>(savedPurchaseOrderDTO, HttpStatus.CREATED);
-        } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        PurchaseOrder purchaseOrder = purchaseOrderService.addPurchaseOrder(purchaseOrderDTO);
+        PurchaseOrderDTO responseDTO = new PurchaseOrderDTO(purchaseOrder);
+        return ResponseEntity.ok(responseDTO);
     }
     @GetMapping("/byuser/{userId}")
     public ResponseEntity<List<PurchaseOrderDTO>> getPurchaseOrdersByUserId(@PathVariable Integer userId) {

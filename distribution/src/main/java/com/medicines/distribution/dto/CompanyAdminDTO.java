@@ -10,6 +10,22 @@ public class CompanyAdminDTO {
     private String surname;
     private Integer companyId;
 
+    public void setUser(UserDTO user) {
+        this.user = user;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
     public CompanyAdminDTO(UserDTO user, Integer companyId, String name, String surname) {
         this.user = user;
         this.name = name;

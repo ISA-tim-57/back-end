@@ -35,6 +35,9 @@ public class OrderEquipmentService {
     Appointmentrepository appointmentRepository;
 
 
+
+
+
     public List<OrderEquipment>  saveOrderEquipments(List<OrderEquipmentDTO> orderEquipmentDTOList) {
         List<OrderEquipment> orderEquipments = new ArrayList<>();
         for (OrderEquipmentDTO dto : orderEquipmentDTOList) {
