@@ -115,16 +115,43 @@ public class PurchaseOrderService {
     public PurchaseOrder cancelByUser(Integer userId, PurchaseOrder purchaseOrder) {
         PurchaseOrder existingOrder = purchaseOrderRepository.findById(purchaseOrder.getId())
                 .orElseThrow(() -> new IllegalArgumentException("PurchaseOrder not found"));
+        BasicUser basicUser=basicUserRepository.findByUserId(userId);
 
-        if (existingOrder.getCustomer().getId().equals(userId)) {
-            existingOrder.setStatus(PurchaseOrder.Status.CANCELLED);
-            purchaseOrderRepository.save(existingOrder);
-            return existingOrder;
-        } else {
+        if (basicUser==null) {
+            throw new IllegalArgumentException("User is not in database");
+        }
+
+
+        if (!existingOrder.getCustomer().getId().equals(userId)) {
             throw new IllegalArgumentException("User is not authorized to cancel this order");
         }
-    }
 
+        Appointment appointment = existingOrder.getAppointment();
+        if (appointment != null) {
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime appointmentTime = appointment.getDateAndTime();
+            if (appointmentTime.isBefore(now.plusHours(24))) {
+               //dva penala
+                Integer penali=basicUser.getPenalty();
+                penali=penali+2;
+                basicUser.setPenalty(penali);
+                basicUserRepository.save(basicUser);
+
+            }
+            else
+            {
+                //jedan penal
+                Integer penali=basicUser.getPenalty();
+                penali=penali+1;
+                basicUser.setPenalty(penali);
+                basicUserRepository.save(basicUser);
+            }
+        }
+
+        existingOrder.setStatus(PurchaseOrder.Status.CANCELLED);
+        purchaseOrderRepository.save(existingOrder);
+        return existingOrder;
+    }
 
    @Transactional(readOnly = false)
     public PurchaseOrder addPurchaseOrder(PurchaseOrderDTO purchaseOrderDTO) {
