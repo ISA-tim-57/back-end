@@ -31,6 +31,8 @@ public class PurchaseOrderService {
     @Autowired
     CompanyRepository companyRepository;
 
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     UserService userService;
@@ -122,7 +124,7 @@ public class PurchaseOrderService {
         }
 
 
-        if (!existingOrder.getCustomer().getId().equals(userId)) {
+        if (!existingOrder.getCustomer().getUser().getId().equals(userId)) {
             throw new IllegalArgumentException("User is not authorized to cancel this order");
         }
 
@@ -130,6 +132,8 @@ public class PurchaseOrderService {
         if (appointment != null) {
             LocalDateTime now = LocalDateTime.now();
             LocalDateTime appointmentTime = appointment.getDateAndTime();
+            appointment.setFree(true);
+            appointmentRepository.save(appointment);
             if (appointmentTime.isBefore(now.plusHours(24))) {
                //dva penala
                 Integer penali=basicUser.getPenalty();
@@ -160,6 +164,9 @@ public class PurchaseOrderService {
        CompanyAdmin companyAdmin = companyAdminRepository.findByUserId(purchaseOrderDTO.getCompanyAdmin().getUser().getId());
        BasicUser customer = basicUserRepository.findByUserId(purchaseOrderDTO.getCustomer().getUser().getId());
        Appointment appointment = appointmentRepository.getAppointmentById(purchaseOrderDTO.getAppointment().getId());
+       appointment.setFree(false);
+       appointmentRepository.save(appointment);
+
        PurchaseOrder   purchaseOrder=new PurchaseOrder();
        purchaseOrder.setAppointment(appointment);
        purchaseOrder.setCustomer(customer);
@@ -185,9 +192,17 @@ public class PurchaseOrderService {
 
        List<OrderEquipment>  savedOrderEquipment=orderEquipmentRepository.saveAll(orderEquipments);
 
+
+
+
         savedPurchaseOrder.setOrderEquipments(savedOrderEquipment);
 
-
+       try {
+           emailService.sendReservationConfirmationEmail(savedPurchaseOrder);
+       } catch (Exception e) {
+           // Handle the exception as needed, e.g., log the error
+           System.err.println("Failed to send confirmation email: " + e.getMessage());
+       }
         // Save the purchase order to the database
         return purchaseOrderRepository.save(purchaseOrder);
     }

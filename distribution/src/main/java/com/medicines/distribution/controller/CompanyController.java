@@ -82,6 +82,19 @@ public class CompanyController {
         }
     }
 
+
+    @GetMapping("/{userId}/companies")
+    public ResponseEntity<List<CompanyDTO>> getCompanyByUserForReport(@PathVariable Integer userId) {
+        List<Company> companies = companyService.getCompanyByUserForReport(userId);
+
+        List<CompanyDTO> companiesDTO = new ArrayList<>();
+        for(Company c : companies){
+            companiesDTO.add(new CompanyDTO(c));
+        }
+        return new ResponseEntity<>(companiesDTO, HttpStatus.OK);
+    }
+
+
     @GetMapping("/{companyId}/appointments")
     public ResponseEntity<List<AppointmentDTO>> getCompanyAppointments(@PathVariable Integer companyId) {
         Company company = companyService.findOne(companyId);

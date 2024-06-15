@@ -3,6 +3,7 @@ package com.medicines.distribution.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "basic_user")
@@ -35,8 +36,14 @@ public class BasicUser{
     @Column(name = "penalty", nullable = false)
     private Integer penalty;
 
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Report> reports = new ArrayList<>();
+
+
     @Column(name = "is_active", nullable = true)
     private boolean isActive;
+
+
 
     public BasicUser() {
         super();
@@ -50,6 +57,15 @@ public class BasicUser{
         this.phone = phone;
         this.profession = profession;
         this.penalty = penalty;
+        this.reports=new ArrayList<>();
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 
     public boolean isActive() {

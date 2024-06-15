@@ -29,11 +29,22 @@ public class CompanyAdmin{
     @JoinColumn(name = "appoinment_id")
     private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "reportedCompanyAdmin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Report> reports = new ArrayList<>();
+
     public CompanyAdmin() {
     }
 
     public List<Appointment> getAppointments() {
         return appointments;
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 
     public void setAppointments(List<Appointment> appointments) {
@@ -46,6 +57,7 @@ public class CompanyAdmin{
         this.surname = surname;
         this.company = company;
         this.appointments=new ArrayList<>();
+        this.reports=new ArrayList<>();
     }
 
     public String getName() {

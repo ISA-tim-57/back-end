@@ -26,6 +26,9 @@ public class CompanyAdminDTO {
         this.companyId = companyId;
     }
 
+    public CompanyAdminDTO() {
+    }
+
     public CompanyAdminDTO(UserDTO user, Integer companyId, String name, String surname) {
         this.user = user;
         this.name = name;

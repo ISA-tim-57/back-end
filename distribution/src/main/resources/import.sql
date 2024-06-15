@@ -21,14 +21,16 @@ INSERT INTO app_user(email, password, username)VALUES ('nenad@gmail.com', '$2a$1
 INSERT INTO app_user(email, password, username)VALUES ('luka@gmail.com', '$2a$10$eO5z6Ul6K5vQdtZYRj1YtuAMe.TOoZCKuuFHasGuSMV9/EmnSQ1qO', 'luka');
 
 INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty,is_active) VALUES (1,4,'Pera','Peric','225-222','Doktor',0,true);
-INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty,is_active) VALUES (2,5,'Nikola','Nikolic','225-212','Apotekar',0,true);
+/*INSERT INTO basic_user(user_id,address_id,name,surname,phone,profession, penalty,is_active) VALUES (2,5,'Nikola','Nikolic','225-212','Apotekar',0,true);*/
 
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (3,1,'Mika','Mikic');
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (4,2,'Nenad','Nenadic');
 INSERT INTO company_admin(user_id,company_id,name,surname) VALUES (5,2,'Luka','Lukic');
 
+INSERT INTO system_admin(user_id) VALUES (2);
+
 INSERT INTO public.user_role(user_id, role_id) VALUES (1, 1);
-INSERT INTO public.user_role(user_id, role_id) VALUES (2, 1);
+INSERT INTO public.user_role(user_id, role_id) VALUES (2, 3);
 INSERT INTO public.user_role(user_id, role_id) VALUES (3, 2);
 INSERT INTO public.user_role(user_id, role_id) VALUES (4, 2);
 INSERT INTO public.user_role(user_id, role_id) VALUES (5, 2);
