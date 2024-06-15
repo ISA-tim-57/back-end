@@ -9,6 +9,8 @@ import com.medicines.distribution.model.User;
 import com.medicines.distribution.repository.BasicUserRepository;
 import com.medicines.distribution.repository.UserRepository;
 import com.medicines.distribution.util.TokenUtils;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,8 +31,21 @@ public class AuthenticationService {
     private final TokenUtils tokenUtils;
     private final AuthenticationManager authenticationManager;
 
+
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    EmailService emailService;
+
+    @Transactional
+    public BasicUser verifyUser(int id) {
+        User user=repository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        BasicUser basicUser = basicUserRepository.findByUser(user);
+        basicUser.setActive(true);
+        return basicUserRepository.save(basicUser);
+    }
+
 
     public BasicUser register(BasicUserDTO request) {
 
@@ -56,6 +71,19 @@ public class AuthenticationService {
         u.setPhone(request.getPhone());
         u.setProfession(request.getProfession());
         u.setPenalty(0);
+        u.setActive(false);
+
+
+        try {
+            emailService.sendNotificaitionAsync(u);
+        }
+catch ( Exception e)
+{
+    System.out.println("Greska prilikom slanja emaila: " + e.getMessage());
+}
+
+
+
 
         BasicUser savedUser = basicUserRepository.save(u);
         return savedUser;

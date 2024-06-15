@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface BasicUserRepository extends JpaRepository<BasicUser,Integer> {
 
     BasicUser findByUserId(Integer userId);
+
     default BasicUser updateBasicUser(Integer id, BasicUser newBasicUser){
         BasicUser user = findById(id).orElse(null);
 
@@ -18,4 +19,6 @@ public interface BasicUserRepository extends JpaRepository<BasicUser,Integer> {
         }
         return user;
     }
+
+    BasicUser findByUser(User user);
 }

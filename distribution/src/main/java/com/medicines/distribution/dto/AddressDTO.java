@@ -15,7 +15,31 @@ public class AddressDTO {
     public AddressDTO() {
     }
 
-    public AddressDTO(Integer id, String country, String city,String street, String number, String zipCode) {
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public AddressDTO(Integer id, String country, String city, String street, String number, String zipCode) {
         this.id = id;
         this.country = country;
         this.city = city;

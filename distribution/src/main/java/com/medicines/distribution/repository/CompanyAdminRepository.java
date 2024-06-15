@@ -7,6 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CompanyAdminRepository extends JpaRepository<CompanyAdmin,Integer> {
 
     CompanyAdmin findByUserId(Integer id);
+
+    CompanyAdmin findAllById(Integer id);
+
+
+
     default CompanyAdmin updateCompanyAdmin(Integer id, CompanyAdmin updatedCompanyAdmin){
         CompanyAdmin user = findByUserId(id);
 

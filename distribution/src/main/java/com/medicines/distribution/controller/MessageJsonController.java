@@ -1,14 +1,14 @@
 package com.medicines.distribution.controller;
 
 import com.medicines.distribution.dto.CoordinatesDTO;
-import com.medicines.distribution.publisher.RabbitMQJsonProducer;
+//import com.medicines.distribution.publisher.RabbitMQJsonProducer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+/*
 @RestController
 @RequestMapping("/api/messages")
 public class MessageJsonController {
@@ -25,3 +25,4 @@ public class MessageJsonController {
         return new ResponseEntity<>(cooridnates, HttpStatus.OK);
     }
 }
+*/

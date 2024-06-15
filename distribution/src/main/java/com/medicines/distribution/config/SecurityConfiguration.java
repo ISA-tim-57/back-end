@@ -1,5 +1,7 @@
 package com.medicines.distribution.config;
 
+import com.medicines.distribution.security.auth.CustomAccessDeniedHandler;
+import com.medicines.distribution.security.auth.CustomAuthenticationEntryPoint;
 import com.medicines.distribution.security.auth.JwtAuthenticationFilter;
 import com.medicines.distribution.security.auth.RestAuthenticationEntryPoint;
 import com.medicines.distribution.util.TokenUtils;
@@ -46,6 +48,9 @@ public class SecurityConfiguration{
             "/api/auth/register",
             "/api/messages/publish",
             "/api/coordinates/current",
+            "/api/equipments/all",
+            "/api/companies/all",
+            "/api/auth/verification/**"
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -56,6 +61,10 @@ public class SecurityConfiguration{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                        .accessDeniedHandler(new CustomAccessDeniedHandler()))
 
                 .sessionManagement((sess) -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests((requests) -> requests

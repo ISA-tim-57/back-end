@@ -5,9 +5,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface CompanyRepository extends JpaRepository<Company,Integer> {
 
-    default Company update(Integer id,Company updatedCompany){
+
+
+    default Company update(Integer id, Company updatedCompany){
         Company company = findById(id).orElse(null);
 
         if(company != null){

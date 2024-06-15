@@ -15,6 +15,34 @@ public class CompanyDTO {
     private LocalTime workingHoursStart;
     private LocalTime workingHoursEnd;
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAddress(AddressDTO address) {
+        this.address = address;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setWorkingHoursStart(LocalTime workingHoursStart) {
+        this.workingHoursStart = workingHoursStart;
+    }
+
+    public void setWorkingHoursEnd(LocalTime workingHoursEnd) {
+        this.workingHoursEnd = workingHoursEnd;
+    }
+
     public CompanyDTO() {
     }
 

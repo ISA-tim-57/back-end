@@ -17,6 +17,26 @@ public class UserDTO {
     public UserDTO() {
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public UserDTO(User user) {
         this(user.getId(), user.getEmail(), user.getPassword(), user.getUsername(),user.getRoles().get(0).getName());
     }

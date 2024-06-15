@@ -27,11 +27,26 @@ public class Appointment {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_admin_id")
+    private CompanyAdmin companyAdmin;
+
+
+
+    @JoinColumn(name = "purchase_order_id",nullable = true)
+    @OneToOne
+    private PurchaseOrder purchaseOrder;
+
+
+
     public Appointment() {
+
         super();
+        this.purchaseOrder=null;
+
     }
 
-    public Appointment(Integer id, String administratorName, String administratorSurname, Integer adminUserId, LocalDateTime dateAndTime, Integer duration, boolean isFree, Company company) {
+    public Appointment(Integer id, String administratorName, String administratorSurname, Integer adminUserId, LocalDateTime dateAndTime, Integer duration, boolean isFree, Company company,CompanyAdmin ca) {
         super();
         this.id = id;
         this.administratorName = administratorName;
@@ -41,6 +56,24 @@ public class Appointment {
         this.duration = duration;
         this.isFree = isFree;
         this.company = company;
+        this.purchaseOrder=null;
+        this.companyAdmin=ca;
+    }
+
+    public CompanyAdmin getCompanyAdmin() {
+        return companyAdmin;
+    }
+
+    public void setCompanyAdmin(CompanyAdmin companyAdmin) {
+        this.companyAdmin = companyAdmin;
+    }
+
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
+    }
+
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
     }
 
     public Integer getId() {

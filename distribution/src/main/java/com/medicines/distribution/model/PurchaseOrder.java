@@ -17,7 +17,7 @@ public class PurchaseOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "order")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "purchaseOrder")
     @JsonIgnore
     private List<OrderEquipment> orderEquipments = new ArrayList<>();
 
@@ -30,10 +30,11 @@ public class PurchaseOrder {
     private BasicUser customer;
 
     @OneToOne
+    @JoinColumn(name = "appoinment_id")
     private Appointment appointment;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.ON_HOLD;
 
     public PurchaseOrder() {
     }

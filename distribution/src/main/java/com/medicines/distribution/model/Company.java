@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.Timer;
+import java.util.*;
 
 @Entity
 public class Company {
@@ -38,6 +35,9 @@ public class Company {
     @JsonIgnore
     private Set<CompanyAdmin> companyAdmins = new HashSet<>();
 
+    @OneToMany(mappedBy = "reportedCompany", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Report> reports = new ArrayList<>();
+
     @Column(name = "rating", nullable = false)
     private double rating;
 
@@ -60,6 +60,17 @@ public class Company {
         this.rating = rating;
         this.workingHoursStart = workingHoursStart;
         this.workingHoursEnd = workingHoursEnd;
+        this.reports=new ArrayList<>();
+    }
+
+
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 
     public void setId(Integer id) {
